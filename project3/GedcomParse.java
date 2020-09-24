@@ -1,4 +1,5 @@
 
+
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -9,17 +10,20 @@ public class GedcomParse {
 	List<Family> familyList;
 	List<String> dataGet;
 	Map<String, Individual> individualMap;
-	
-	public GedcomParse() {
+    private static String fFilename="test1.ged";
+	public GedcomParse(String filename) {
 		individualList = new ArrayList<Individual>();
 		familyList = new ArrayList<Family>();
 		dataGet = new ArrayList<String>();
 		individualMap = new HashMap<String, Individual>();
+        fFilename= filename;
 	}
-	
+    public String filename() {
+        return fFilename;
+    }
 	public void readFile() {
 		try {
-			InputStream file = new FileInputStream("team7.ged");
+			InputStream file = new FileInputStream(fFilename);
 			BufferedReader reader = new BufferedReader( new InputStreamReader(file));
 			String str = null;
 			while(true) {
@@ -265,7 +269,7 @@ public class GedcomParse {
 	}
 	
 	public static void main(String[] args) {
-		GedcomParse proj3 = new GedcomParse();
+		GedcomParse proj3 = new GedcomParse(fFilename);
 		proj3.readFile();
 		proj3.writeIntoIndividualList();
 		proj3.writeIntofamilyList();
@@ -315,7 +319,8 @@ public class GedcomParse {
 		proj3.US03(proj3.individualList);
 
 	}
-	private boolean isDateValid(String deathStr, String birthStr) {
+	//private int flag;
+	public boolean isDateValid(String deathStr, String birthStr) {
 		
 		boolean flag = false;
 		//System.out.print(deathStr+"	");
@@ -338,7 +343,7 @@ public class GedcomParse {
 			if(monthBirthInt < monthDeathInt) {
 				flag = true;
 			}else if(monthBirthInt == monthDeathInt) {
-				if(dayBirthInt < dayDeathInt) {
+				if(dayBirthInt <= dayDeathInt) {
 					flag = true;
 				}
 			}
@@ -353,7 +358,8 @@ public class GedcomParse {
 			if(!person.getDeath().equals("NA")) {
 				String birthStr = person.getBirthday();
 				String deathStr = person.getDeath();
-				if(!isDateValid(deathStr,birthStr)) {
+				boolean re=isDateValid(deathStr,birthStr);
+				if(re==false) {
 					deathErrorList.add(person);
 				}
 			}

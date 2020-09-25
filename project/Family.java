@@ -1,9 +1,9 @@
-
 import java.util.List;
 
 public class Family {
 	
 	private String ID;
+	private int line;
 	private String married;
 	private String divorced;
 	private String husbandID;
@@ -15,6 +15,7 @@ public class Family {
 	public String getID() {
 		return ID;
 	}
+	public int getLine() {return line;}
 	public String getMarried() {
 		return married;
 	}
@@ -41,6 +42,7 @@ public class Family {
 	public void setID(String ID) {
 		this.ID = ID;
 	}
+	public void setLine(int line) { this.line = line; }
 	public void setMarried(String married) {
 		this.married = married;
 	}

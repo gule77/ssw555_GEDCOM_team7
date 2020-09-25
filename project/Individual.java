@@ -1,8 +1,7 @@
-
-
 public class Individual {
 
 	private String ID;
+	private int line;
 	private String name;
 	private String gender;
 	private String birthday;
@@ -15,6 +14,7 @@ public class Individual {
 	public String getId() {
 		return ID;
 	}
+	public int getLine() {return line;}
 	public String getName() {
 		return name;
 	}
@@ -27,9 +27,7 @@ public class Individual {
 	public int getAge() {
 		return age;
 	}
-	public boolean getIsAlive() {
-		return alive;
-	}
+	public boolean getIsAlive() { return alive; }
 	public String getDeath() {
 		return death;
 	}
@@ -43,6 +41,7 @@ public class Individual {
 	public void setId(String ID) {
 		this.ID = ID;
 	}
+	public void setLine(int line) { this.line = line; }
 	public void setName(String name) {
 		this.name = name;
 	}

@@ -10,20 +10,17 @@ public class GedcomParse {
 	List<Family> familyList;
 	List<String> dataGet;
 	Map<String, Individual> individualMap;
-    private static String fFilename="team7.ged";
-	public GedcomParse(String filename) {
+	
+	public GedcomParse() {
 		individualList = new ArrayList<Individual>();
 		familyList = new ArrayList<Family>();
 		dataGet = new ArrayList<String>();
 		individualMap = new HashMap<String, Individual>();
-        fFilename= filename;
 	}
-    public String filename() {
-        return fFilename;
-    }
+	
 	public void readFile() {
 		try {
-			InputStream file = new FileInputStream(fFilename);
+			InputStream file = new FileInputStream("team7.ged");
 			BufferedReader reader = new BufferedReader( new InputStreamReader(file));
 			String str = null;
 			while(true) {
@@ -269,7 +266,7 @@ public class GedcomParse {
 	}
 	
 	public static void main(String[] args) {
-		GedcomParse proj3 = new GedcomParse(fFilename);
+		GedcomParse proj3 = new GedcomParse();
 		proj3.readFile();
 		proj3.writeIntoIndividualList();
 		proj3.writeIntofamilyList();

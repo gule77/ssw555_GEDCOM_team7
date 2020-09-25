@@ -10,7 +10,7 @@ public class GedcomParse {
 	List<Family> familyList;
 	List<String> dataGet;
 	Map<String, Individual> individualMap;
-    private static String fFilename="test1.ged";
+    private static String fFilename="team7.ged";
 	public GedcomParse(String filename) {
 		individualList = new ArrayList<Individual>();
 		familyList = new ArrayList<Family>();

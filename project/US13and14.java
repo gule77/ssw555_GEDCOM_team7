@@ -1,3 +1,4 @@
+
 /*
     Sprint1
     US13 and 14
@@ -15,9 +16,9 @@ public class US13and14{
 		Birth dates of siblings should be more than 8 months apart or less than 2 days apart
 		(twins may be born one day apart, e.g. 11:59 PM and 12:02 AM the following calendar day)
 	 */
-    public boolean US13(Family f, Map<String, Individual> individualMap){
+    public boolean US13(Family f){
         boolean res = true;
-        List<Individual> siblings = sortSiblingsByBirthday(f, individualMap);
+        List<Individual> siblings = sortSiblingsByBirthday(f);
         for (int i = 0; i < siblings.size() - 1; i++) {
             Individual sib1 = siblings.get(i), sib2 = siblings.get(i + 1);
             String birth1 = sib1.getBirthday(), birth2 = sib2.getBirthday();
@@ -34,10 +35,10 @@ public class US13and14{
     /*
 		Check if five siblings are born at the same time
 	 */
-	public boolean US14(Family f, Map<String, Individual> individualMap) {
+	public boolean US14(Family f) {
         List<int[]> lists = new ArrayList<>();  // in case mutiple error information
         int num = 1, pos = -1;
-        List<Individual> siblings = sortSiblingsByBirthday(f, individualMap);
+        List<Individual> siblings = sortSiblingsByBirthday(f);
         for (int i = 0; i < siblings.size() - 1; i++) {
             Individual sib1 = siblings.get(i), sib2 = siblings.get(i + 1);
             String birth1 = sib1.getBirthday(), birth2 = sib2.getBirthday();
@@ -75,12 +76,8 @@ public class US13and14{
 	/*
 	    sort siblings by birthday
 	 */
-    private List<Individual> sortSiblingsByBirthday(Family f, Map<String, Individual> individualMap) {
-	    List<Individual> siblings = new ArrayList<>();
-        for (String s: f.getChildren()) {
-            Individual child = individualMap.get(s);
-            siblings.add(child);
-        }
+    private List<Individual> sortSiblingsByBirthday(Family f) {
+	    List<Individual> siblings = f.getChildren();
 
         Collections.sort(siblings, (a, b) -> {
             String birth1 = a.getBirthday(), birth2 = b.getBirthday();
@@ -89,12 +86,4 @@ public class US13and14{
         });
         return siblings;
     }
-
-    public static void main(String[] args) {
-        System.out.println("\n--------------------US13: Siblings Spacing--------------------");
-
-        System.out.println("\n--------------------US13: Siblings Spacing--------------------");
-    }
-
-
 }

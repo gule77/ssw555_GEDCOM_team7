@@ -1,4 +1,3 @@
-package ssw555_GEDCOM_team7.project;
 /*
     Sprint1
     US13 and 14

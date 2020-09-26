@@ -1,3 +1,4 @@
+
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -8,17 +9,19 @@ public class GedcomParse {
 	List<Family> familyList;
 	List<String> dataGet;
 	Map<String, Individual> individualMap;
+	Map<String, Family> familyMap;
 	
 	public GedcomParse() {
 		individualList = new ArrayList<Individual>();
 		familyList = new ArrayList<Family>();
 		dataGet = new ArrayList<String>();
 		individualMap = new HashMap<String, Individual>();
+		familyMap = new HashMap<String, Family>();
 	}
 	
 	public void readFile() {
 		try {
-			InputStream file = new FileInputStream("D:/2020_Fall_Stevens/ssw555/project/src/ssw555_GEDCOM_team7/project/test2.ged");
+			InputStream file = new FileInputStream("team7.ged");
 			BufferedReader reader = new BufferedReader( new InputStreamReader(file));
 			String str = null;
 			while(true) {
@@ -38,8 +41,8 @@ public class GedcomParse {
         int age = 0;
         try {
             Calendar now = Calendar.getInstance();
-            now.setTime(new Date());
 
+            now.setTime(new Date());
             Calendar birth = Calendar.getInstance();
             birth.setTime(birthday);
 
@@ -47,8 +50,8 @@ public class GedcomParse {
                 age = 0;
             } else {
                 age = now.get(Calendar.YEAR) - birth.get(Calendar.YEAR);
-                if (now.get(Calendar.DAY_OF_YEAR) > birth.get(Calendar.DAY_OF_YEAR)) {
-                    age += 1;
+                if (now.get(Calendar.DAY_OF_YEAR) < birth.get(Calendar.DAY_OF_YEAR)) {
+                    age -= 1;
                 }
             }
             return age;
@@ -56,6 +59,28 @@ public class GedcomParse {
            return 0;
         }
     }
+	private static int getAgeByDeath(Date birthday,Date deathDate) {
+		int age = 0;
+		try {
+			Calendar death = Calendar.getInstance();
+			death.setTime(deathDate);
+
+			Calendar birth = Calendar.getInstance();
+			birth.setTime(birthday);
+
+			if (birth.after(death)) {
+				age = 0;
+			} else {
+				age = death.get(Calendar.YEAR) - birth.get(Calendar.YEAR);
+				if (death.get(Calendar.DAY_OF_YEAR) < birth.get(Calendar.DAY_OF_YEAR)) {
+					age -= 1;
+				}
+			}
+			return age;
+		} catch (Exception e) {
+			return 0;
+		}
+	}
 	public void writeIntoIndividualList() {
 		
 		for(int i = 0; i<dataGet.size();i++) {
@@ -66,7 +91,6 @@ public class GedcomParse {
 					Individual thisPerson = new Individual();
 					String id = str[1].replaceAll("@","");
 					thisPerson.setId(id);
-					thisPerson.setLine(i);
 					thisPerson.setAlive(true);
 					thisPerson.setDeath("NA");
 					thisPerson.setChild("NA");
@@ -109,8 +133,8 @@ public class GedcomParse {
 							}
 							individualList.get(individualList.size()-1).setBirthday(year+month+day);
 					        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-					        Date bithday = format.parse(year+month+day);
-					        int age = getAgeByBirth(bithday)-1;
+					        Date birthday = format.parse(year+month+day);
+					        int age = getAgeByBirth(birthday);
 							individualList.get(individualList.size()-1).setAge(age);
 						}
 					}else if(str[1].equals("DEAT")) {
@@ -138,6 +162,12 @@ public class GedcomParse {
 							}
 							individualList.get(individualList.size()-1).setDeath(year+month+day);
 							individualList.get(individualList.size()-1).setAlive(false);
+							SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+							Date deathDate = format.parse(year+month+day);
+							String birthday = individualList.get(individualList.size()-1).getBirthday();
+							Date birth = format.parse(birthday);
+							int age = getAgeByDeath(birth, deathDate);
+							individualList.get(individualList.size()-1).setAge(age);
 						}
 					}else if(str[1].equals("FAMC")) {
 						String family_ID = str[2];
@@ -168,9 +198,10 @@ public class GedcomParse {
 						Family thisFamily = new Family();
 						String id = str[1].replaceAll("@","");
 						thisFamily.setID(id);
-						thisFamily.setLine(i);
+						thisFamily.setMarried("NA");
 						thisFamily.setDivorced("NA");
 						familyList.add(thisFamily);
+						familyMap.put(id, thisFamily);
 					}
 				}else if(str[0].equals("1")){
 					if(str[1].equals("MARR")) {
@@ -220,42 +251,42 @@ public class GedcomParse {
 						String id = str[2];
 						id = id.replaceAll("@", "");
 						Family thisFamily = familyList.get(familyList.size()-1);
-//						List<Individual> childList = thisFamily.getChildren();
-//						if(childList.size() == 0) childList = new ArrayList<>();
-//						childList.add(individualMap.get(id));
-//						thisFamily.setChildren(childList);
-						if (thisFamily.getChildren() == null) thisFamily.setChildren(new ArrayList<>());
-						thisFamily.getChildren().add(individualMap.get(id));
-					}
-				}else if(str[1].equals("DIV")) {
-					String divString = dataGet.get(++i);
-					String[] divArray = divString.split(" ");
-					if(divArray[0].equals("2") && divArray[1].equals("DATE")) {
-						
-						if(divArray.length>=5) {
-							String day = divArray[2];
-							String month = divArray[3];
-							String year = divArray[4];
-						
-							switch(month) {
-							case "JAN": month = "-01-"; break;
-							case "FEB": month = "-02-"; break;
-							case "MAR": month = "-03-"; break;
-							case "APR": month = "-04-"; break;
-							case "MAY": month = "-05-"; break;
-							case "JUN": month = "-06-"; break;
-							case "JUL": month = "-07-"; break;
-							case "AUG": month = "-08-"; break;
-							case "SEP": month = "-09-"; break;
-							case "OCT": month = "-10-"; break;
-							case "NOV": month = "-11-"; break;
-							case "DEC": month = "-12-"; break;
-							default: month ="-Error-";
+						List<String> childList = thisFamily.getChildren();
+						if(childList == null) {
+							childList = new ArrayList<String>();
+						}
+						childList.add(id);
+						thisFamily.setChildren(childList);
+					}else if(str[1].equals("DIV")) {
+						String divString = dataGet.get(++i);
+						String[] divArray = divString.split(" ");
+						if(divArray[0].equals("2") && divArray[1].equals("DATE")) {
+
+							if(divArray.length>=5) {
+								String day = divArray[2];
+								String month = divArray[3];
+								String year = divArray[4];
+
+								switch(month) {
+									case "JAN": month = "-01-"; break;
+									case "FEB": month = "-02-"; break;
+									case "MAR": month = "-03-"; break;
+									case "APR": month = "-04-"; break;
+									case "MAY": month = "-05-"; break;
+									case "JUN": month = "-06-"; break;
+									case "JUL": month = "-07-"; break;
+									case "AUG": month = "-08-"; break;
+									case "SEP": month = "-09-"; break;
+									case "OCT": month = "-10-"; break;
+									case "NOV": month = "-11-"; break;
+									case "DEC": month = "-12-"; break;
+									default: month ="-Error-";
+								}
+								familyList.get(familyList.size()-1).setDivorced(year+month+day);
+							}else if(divArray.length==3) {
+								String year = divArray[2];
+								familyList.get(familyList.size()-1).setDivorced(year);
 							}
-							familyList.get(familyList.size()-1).setDivorced(year+month+day);
-						}else if(divArray.length==3) {
-							String year = divArray[2];
-							familyList.get(familyList.size()-1).setDivorced(year);
 						}
 					}
 				}
@@ -264,6 +295,8 @@ public class GedcomParse {
 			}
 		}
 	}
+
+
 	
 	public static void main(String[] args) {
 		GedcomParse proj3 = new GedcomParse();
@@ -274,104 +307,54 @@ public class GedcomParse {
 		
 		 
 		System.out.println("Individuals");
-		System.out.println("+-----+--------------------+--------+-----------+-----+-------+------------+-----------+-----------+");
-		System.out.println("| ID  | Name               | Gender | Birthday  | Age | Alive | Death      | Child     | Spouse    |");
-		System.out.println("+-----+--------------------+--------+-----------+-----+-------+------------+-----------+-----------+");
+		System.out.println("+-----+--------------------+--------+-----------+-----+-------+------------+--------------------+-----------+");
+		System.out.println("| ID  | Name               | Gender | Birthday  | Age | Alive | Death      | Child              | Spouse    |");
+		System.out.println("+-----+--------------------+--------+-----------+-----+-------+------------+--------------------+-----------+");
 		for (Individual person : proj3.individualList) {
 			 String child;
 			 if(!person.getChild().equals("NA")) {
-				 child = "{'"+person.getChild()+"'}";
+			 	List<String> childList = proj3.familyMap.get(person.getChild()).getChildren();
+			 	String childStr = "";
+			 	for(String childId : childList) {
+			 		childStr = childStr + "','" + childId;
+				}
+			 	childStr = childStr.substring(3);
+				 child = "{'"+childStr+"'}";
 			 }else {
 				 child = "NA";
 			 }
 			 String spouse;
 			 if(!person.getSpouse().equals("NA")) {
-				 spouse = "{'"+person.getSpouse()+"'}";
+			 	String spouseId = proj3.familyMap.get(person.getSpouse()).getHusbandID();
+			 	if(spouseId.equals(person.getId())) {
+			 		spouseId = proj3.familyMap.get(person.getSpouse()).getWifeID();
+				}
+				 spouse = "{'"+ spouseId+"'}";
 			 }else {
 				 spouse = "NA";
 			 }
-			System.out.printf("|%-5s|%-20s|%-8s|%-11s|%-5d|%-7b|%-12s|%-11s|%-11s|%n", 
+			System.out.printf("|%-5s|%-20s|%-8s|%-11s|%-5d|%-7b|%-12s|%-20s|%-11s|%n",
 					person.getId(), person.getName(), person.getGender(), person.getBirthday(),
 					person.getAge(), person.getIsAlive(), person.getDeath(),  child  ,  spouse );
 		}
-		System.out.println("+-----+--------------------+--------+-----------+-----+-------+------------+-----------+-----------+");
+		System.out.println("+-----+--------------------+--------+-----------+-----+-------+------------+--------------------+-----------+");
 		System.out.println("Families");
 		System.out.println("+-----+------------+------------+------------+--------------------+-----------+--------------------+--------------------+");
 		System.out.println("| ID  | Married    | Divorced   | Husband ID | Husband Name       | Wife ID   | Wife Name          |   Childern         |");
 		System.out.println("+-----+------------+------------+------------+--------------------+-----------+--------------------+--------------------+");
 		for (Family family : proj3.familyList) {
-			StringBuilder childString = new StringBuilder();
-			childString.append("{");
-			for(Individual child: family.getChildren()) {
-				childString.append(",");
-				childString.append(child.getId());
+			String childString="";
+			for(String child: family.getChildren()) {
+				childString = childString+"','"+child;
 			}
-			childString.deleteCharAt(1);
-			childString.append("}");
+			childString = childString.substring(2);
+			childString = "{"+childString+"'}";
 			System.out.printf("|%-5s|%-12s|%-12s|%-12s|%-20s|%-11s|%-20s|%-20s|%n",
 					family.getID(), family.getMarried(), family.getDivorced(), family.getHusbandID(), family.getHusbandName(),
-					family.getWifeID(), family.getWifeName(), childString.toString());
+					family.getWifeID(), family.getWifeName(), childString);
 		}
 		System.out.println("+-----+------------+------------+------------+--------------------+-----------+--------------------+--------------------+");
 	
-		System.out.println("\n--------------------US03: Birth before death--------------------");
-		proj3.US03(proj3.individualList);
 
-	}
-	//private int flag;
-	public boolean isDateValid(String deathStr, String birthStr) {
-		
-		boolean flag = false;
-		//System.out.print(deathStr+"	");
-		//System.out.println(birthStr);
-		String yearBirthStr = birthStr.substring(0,4);
-		String yearDeathStr = deathStr.substring(0,4);
-		int yearBirthInt = Integer.parseInt(yearBirthStr);
-		int yearDeathInt = Integer.parseInt(yearDeathStr);
-		String monthBirthStr = birthStr.substring(5,7);
-		String monthDeathStr = deathStr.substring(5,7);
-		int monthBirthInt = Integer.parseInt(monthBirthStr);
-		int monthDeathInt = Integer.parseInt(monthDeathStr);
-		String dayBirthStr = birthStr.substring(8);
-		String dayDeathStr = deathStr.substring(8);
-		int dayBirthInt = Integer.parseInt(dayBirthStr);
-		int dayDeathInt = Integer.parseInt(dayDeathStr);
-		if(yearDeathInt > yearBirthInt) {
-			flag = true;
-		}else if(yearDeathInt == yearBirthInt) {
-			if(monthBirthInt < monthDeathInt) {
-				flag = true;
-			}else if(monthBirthInt == monthDeathInt) {
-				if(dayBirthInt <= dayDeathInt) {
-					flag = true;
-				}
-			}
-		}		
-		return flag;
-	}
-
-	public void US03(List<Individual> individualList) {
-		//System.out.println(individualList);
-		List<Individual> deathErrorList = new ArrayList<>();
-		for(Individual person: individualList) {
-			if(!person.getDeath().equals("NA")) {
-				String birthStr = person.getBirthday();
-				String deathStr = person.getDeath();
-				boolean re=isDateValid(deathStr,birthStr);
-				if(re==false) {
-					deathErrorList.add(person);
-				}
-			}
-		}
-		if(deathErrorList.isEmpty()) {
-			System.out.println("No error");
-		}else {
-			System.out.println("Error List");
-			for (Individual person : deathErrorList) {
-
-				 System.out.println("ID:"+person.getId()+"	| Name:"+person.getName()+"	| Birth:"+person.getBirthday()+"	| Death:"+person.getDeath());
-			}
-			System.out.println();
-		}
 	}
 }

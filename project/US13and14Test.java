@@ -1,5 +1,3 @@
-package ssw555_GEDCOM_team7.project;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

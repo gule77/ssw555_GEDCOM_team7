@@ -1,3 +1,5 @@
+package ssw555_GEDCOM_team7.project;
+
 import java.util.List;
 
 public class Family {
@@ -10,7 +12,7 @@ public class Family {
 	private String husbandName;
 	private String wifeID;
 	private String wifeName;
-	private List<String> children;
+	private List<Individual> children;
 	
 	public String getID() {
 		return ID;
@@ -34,7 +36,7 @@ public class Family {
 	public String getWifeName() {
 		return wifeName;
 	}
-	public List<String> getChildren() {
+	public List<Individual> getChildren() {
 		return children;
 	}
 	
@@ -61,7 +63,7 @@ public class Family {
 	public void setWifeName(String wifeName) {
 		this.wifeName = wifeName;
 	}
-	public void setChildren(List<String> children) {
+	public void setChildren(List<Individual> children) {
 		this.children = children;
 	}
 

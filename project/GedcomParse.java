@@ -1,5 +1,3 @@
-package ssw555_GEDCOM_team7.project;
-
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;

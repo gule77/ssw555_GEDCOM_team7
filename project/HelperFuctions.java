@@ -1,4 +1,4 @@
-package ssw555_GEDCOM_team7.project;/*
+/*
     HelperFunctions:
     1. dateDifference(years, months, days);
     @author Xiaoxiao Deng

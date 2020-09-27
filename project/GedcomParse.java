@@ -379,6 +379,5 @@ public class GedcomParse {
 					family.getWifeID(), family.getWifeName(), childString);
 		}
 		System.out.println("+-----+------------+------------+------------+--------------------+-----------+--------------------+--------------------+");
-		US03.US03(proj3.individualList);
 	}
 }

@@ -21,7 +21,7 @@ public class GedcomParse {
 	
 	public void readFile() {
 		try {
-			InputStream file = new FileInputStream("team7.ged");
+			InputStream file = new FileInputStream("2.ged");
 			BufferedReader reader = new BufferedReader( new InputStreamReader(file));
 			String str = null;
 			while(true) {
@@ -82,7 +82,6 @@ public class GedcomParse {
 		}
 	}
 	public void writeIntoIndividualList() {
-		
 		for(int i = 0; i<dataGet.size();i++) {
 			String strTem = dataGet.get(i);
 			String str[] = strTem.split(" ");
@@ -91,7 +90,7 @@ public class GedcomParse {
 					Individual thisPerson = new Individual();
 					String id = str[1].replaceAll("@","");
 					thisPerson.setId(id);
-					thisPerson.setLine(i);
+					thisPerson.setLine(i + 1);
 					thisPerson.setAlive(true);
 					thisPerson.setDeath("NA");
 					thisPerson.setChild("NA");
@@ -169,6 +168,7 @@ public class GedcomParse {
 							Date birth = format.parse(birthday);
 							int age = getAgeByDeath(birth, deathDate);
 							individualList.get(individualList.size()-1).setAge(age);
+							individualList.get(individualList.size()-1).setdeathLine(i+1);
 						}
 					}else if(str[1].equals("FAMC")) {
 						String family_ID = str[2];
@@ -199,7 +199,7 @@ public class GedcomParse {
 						Family thisFamily = new Family();
 						String id = str[1].replaceAll("@","");
 						thisFamily.setID(id);
-						thisFamily.setLine(i);
+						thisFamily.setLine(i + 1);
 						thisFamily.setMarried("NA");
 						thisFamily.setDivorced("NA");
 						familyList.add(thisFamily);
@@ -316,27 +316,38 @@ public class GedcomParse {
 		System.out.println("+-----+--------------------+--------+-----------+-----+-------+------------+--------------------+-----------+");
 		for (Individual person : proj3.individualList) {
 			 String child;
-			 if(!person.getChild().equals("NA")) {
-			 	List<Individual> childList = proj3.familyMap.get(person.getChild()).getChildren();
-			 	String childStr = "";
-			 	for(Individual childId : childList) {
-			 		childStr = childStr + "','" + childId.getId();
-				}
-			 	childStr = childStr.substring(3);
-				 child = "{'"+childStr+"'}";
-			 }else {
-				 child = "NA";
-			 }
-			 String spouse;
-			 if(!person.getSpouse().equals("NA")) {
-			 	String spouseId = proj3.familyMap.get(person.getSpouse()).getHusbandID();
-			 	if(spouseId.equals(person.getId())) {
-			 		spouseId = proj3.familyMap.get(person.getSpouse()).getWifeID();
-				}
-				 spouse = "{'"+ spouseId+"'}";
-			 }else {
-				 spouse = "NA";
-			 }
+			if(!person.getChild().equals("NA")) {
+				child = "{'"+person.getChild()+"'}";
+			}else {
+				child = "NA";
+			}
+			String spouse;
+			if(!person.getSpouse().equals("NA")) {
+				spouse = "{'"+person.getSpouse()+"'}";
+			}else {
+				spouse = "NA";
+			}
+//			 if(!person.getChild().equals("NA")) {
+//			 	List<Individual> childList = proj3.familyMap.get(person.getChild()).getChildren();
+//			 	String childStr = "";
+//			 	for(Individual childId : childList) {
+//			 		childStr = childStr + "','" + childId.getId();
+//				}
+//			 	childStr = childStr.substring(3);
+//				 child = "{'"+childStr+"'}";
+//			 }else {
+//				 child = "NA";
+//			 }
+//			 String spouse;
+//			 if(!person.getSpouse().equals("NA")) {
+//			 	String spouseId = proj3.familyMap.get(person.getSpouse()).getHusbandID();
+//			 	if(spouseId.equals(person.getId())) {
+//			 		spouseId = proj3.familyMap.get(person.getSpouse()).getWifeID();
+//				}
+//				 spouse = "{'"+ spouseId+"'}";
+//			 }else {
+//				 spouse = "NA";
+//			 }
 			System.out.printf("|%-5s|%-20s|%-8s|%-11s|%-5d|%-7b|%-12s|%-20s|%-11s|%n",
 					person.getId(), person.getName(), person.getGender(), person.getBirthday(),
 					person.getAge(), person.getIsAlive(), person.getDeath(),  child  ,  spouse );
@@ -348,17 +359,26 @@ public class GedcomParse {
 		System.out.println("+-----+------------+------------+------------+--------------------+-----------+--------------------+--------------------+");
 		for (Family family : proj3.familyList) {
 			String childString="";
-			for(Individual child: family.getChildren()) {
-				childString = childString+"','"+child.getId();
+			if(!(family.getChildren()==null)) {
+				for(Individual child: family.getChildren()) {
+					childString = childString+"','"+child.getId();
+				}
+				childString = childString.substring(2);
+				childString = "{"+childString+"'}";
+			}else {
+				childString = "NA";
 			}
-			childString = childString.substring(2);
-			childString = "{"+childString+"'}";
+			
+//			for(Individual child: family.getChildren()) {
+//				childString = childString+"','"+child.getId();
+//			}
+//			childString = childString.substring(2);
+//			childString = "{"+childString+"'}";
 			System.out.printf("|%-5s|%-12s|%-12s|%-12s|%-20s|%-11s|%-20s|%-20s|%n",
 					family.getID(), family.getMarried(), family.getDivorced(), family.getHusbandID(), family.getHusbandName(),
 					family.getWifeID(), family.getWifeName(), childString);
 		}
 		System.out.println("+-----+------------+------------+------------+--------------------+-----------+--------------------+--------------------+");
-	
-
+		US03.US03(proj3.individualList);
 	}
 }

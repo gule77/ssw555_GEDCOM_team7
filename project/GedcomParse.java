@@ -91,6 +91,7 @@ public class GedcomParse {
 					Individual thisPerson = new Individual();
 					String id = str[1].replaceAll("@","");
 					thisPerson.setId(id);
+					thisPerson.setLine(i);
 					thisPerson.setAlive(true);
 					thisPerson.setDeath("NA");
 					thisPerson.setChild("NA");
@@ -198,6 +199,7 @@ public class GedcomParse {
 						Family thisFamily = new Family();
 						String id = str[1].replaceAll("@","");
 						thisFamily.setID(id);
+						thisFamily.setLine(i);
 						thisFamily.setMarried("NA");
 						thisFamily.setDivorced("NA");
 						familyList.add(thisFamily);
@@ -251,12 +253,14 @@ public class GedcomParse {
 						String id = str[2];
 						id = id.replaceAll("@", "");
 						Family thisFamily = familyList.get(familyList.size()-1);
-						List<String> childList = thisFamily.getChildren();
-						if(childList == null) {
-							childList = new ArrayList<String>();
-						}
-						childList.add(id);
-						thisFamily.setChildren(childList);
+//						List<String> childList = thisFamily.getChildren();
+//						if(childList == null) {
+//							childList = new ArrayList<String>();
+//						}
+//						childList.add(id);
+//						thisFamily.setChildren(childList);
+						if( thisFamily.getChildren() == null) thisFamily.setChildren(new ArrayList<>());
+						thisFamily.getChildren().add(individualMap.get(id));
 					}else if(str[1].equals("DIV")) {
 						String divString = dataGet.get(++i);
 						String[] divArray = divString.split(" ");
@@ -313,10 +317,10 @@ public class GedcomParse {
 		for (Individual person : proj3.individualList) {
 			 String child;
 			 if(!person.getChild().equals("NA")) {
-			 	List<String> childList = proj3.familyMap.get(person.getChild()).getChildren();
+			 	List<Individual> childList = proj3.familyMap.get(person.getChild()).getChildren();
 			 	String childStr = "";
-			 	for(String childId : childList) {
-			 		childStr = childStr + "','" + childId;
+			 	for(Individual childId : childList) {
+			 		childStr = childStr + "','" + childId.getId();
 				}
 			 	childStr = childStr.substring(3);
 				 child = "{'"+childStr+"'}";
@@ -344,8 +348,8 @@ public class GedcomParse {
 		System.out.println("+-----+------------+------------+------------+--------------------+-----------+--------------------+--------------------+");
 		for (Family family : proj3.familyList) {
 			String childString="";
-			for(String child: family.getChildren()) {
-				childString = childString+"','"+child;
+			for(Individual child: family.getChildren()) {
+				childString = childString+"','"+child.getId();
 			}
 			childString = childString.substring(2);
 			childString = "{"+childString+"'}";

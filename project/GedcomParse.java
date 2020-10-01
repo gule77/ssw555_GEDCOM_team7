@@ -168,7 +168,7 @@ public class GedcomParse {
 							Date birth = format.parse(birthday);
 							int age = getAgeByDeath(birth, deathDate);
 							individualList.get(individualList.size()-1).setAge(age);
-//							individualList.get(individualList.size()-1).setdeathLine(i+1);
+
 						}
 					}else if(str[1].equals("FAMC")) {
 						String family_ID = str[2];

@@ -157,7 +157,36 @@ public class HelperFuctions {
         return list1;
     }
 
-
+    public static boolean isDateValid(String deathStr, String birthStr) {
+		
+		boolean flag = false;
+		//System.out.print(deathStr+"	");
+		//System.out.println(birthStr);
+		String yearBirthStr = birthStr.substring(0,4);
+		String yearDeathStr = deathStr.substring(0,4);
+		int yearBirthInt = Integer.parseInt(yearBirthStr);
+		int yearDeathInt = Integer.parseInt(yearDeathStr);
+		String monthBirthStr = birthStr.substring(5,7);
+		String monthDeathStr = deathStr.substring(5,7);
+		int monthBirthInt = Integer.parseInt(monthBirthStr);
+		int monthDeathInt = Integer.parseInt(monthDeathStr);
+		String dayBirthStr = birthStr.substring(8);
+		String dayDeathStr = deathStr.substring(8);
+		int dayBirthInt = Integer.parseInt(dayBirthStr);
+		int dayDeathInt = Integer.parseInt(dayDeathStr);
+		if(yearDeathInt > yearBirthInt) {
+			flag = true;
+		}else if(yearDeathInt == yearBirthInt) {
+			if(monthBirthInt < monthDeathInt) {
+				flag = true;
+			}else if(monthBirthInt == monthDeathInt) {
+				if(dayBirthInt < dayDeathInt) {
+					flag = true;
+				}
+			}
+		}		
+		return flag;
+	}
     // for testing
 //    public static void main(String[] args) {
 ////        System.out.println(yearsBetween("2018-08-15", "2017-03-1"));

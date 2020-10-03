@@ -12,17 +12,7 @@ public class US03and12Test extends TestCase{
 		p1.setBirthday("1935-08-1");
 		p1.setDeath("1900-08-1");
 		
-		Individual p12 = new Individual();
-		p12.setId("P012");
-		p12.setAlive(false);
-		p12.setBirthday("1935-08-1");
-		p12.setDeath("1950-08-1");
-		
-		List<Individual> peoplelist = new ArrayList<>();
-		peoplelist.add(p1);
-		peoplelist.add(p12);
-		//System.out.println(US03.US03(peoplelist));
-		Assert.assertEquals(false, US03and12.US03(peoplelist));
+		Assert.assertEquals(false, US03and12.US03(p1));
 	}
 	public void test2(){
 		Individual p2 = new Individual();
@@ -30,11 +20,8 @@ public class US03and12Test extends TestCase{
 		p2.setAlive(true);
 		p2.setBirthday("1935-08-1");
 		p2.setDeath("1941-08-1");
-		
-		List<Individual> peoplelist = new ArrayList<>();
-		peoplelist.add(p2);
-		//System.out.println(US03.US03(peoplelist));
-		Assert.assertEquals(true, US03and12.US03(peoplelist));
+
+		Assert.assertEquals(true, US03and12.US03(p2));
 	}
 	public void test3() {
 		Individual p1 = new Individual();
@@ -47,12 +34,8 @@ public class US03and12Test extends TestCase{
 		p2.setAlive(false);
 		p2.setBirthday("1935-08-1");
 		p2.setDeath("1902-08-1");
-		
-		List<Individual> peoplelist = new ArrayList<>();
-		List<Individual> peoplelist2 = new ArrayList<>();
-		peoplelist.add(p1);
-		peoplelist2.add(p2);
-		Assert.assertEquals(US03and12.US03(peoplelist), US03and12.US03(peoplelist2));
+
+		Assert.assertEquals(US03and12.US03(p1), US03and12.US03(p2));
 	}
 	public void test4() {
 		Individual p1 = new Individual();
@@ -60,10 +43,8 @@ public class US03and12Test extends TestCase{
 		p1.setAlive(false);
 		p1.setBirthday("1935-08-1");
 		p1.setDeath("1903-08-1");
-		
-		List<Individual> peoplelist = new ArrayList<>();
-		peoplelist.add(p1);
-		Assert.assertTrue(!US03and12.US03(peoplelist));;
+
+		Assert.assertTrue(!US03and12.US03(p1));;
 	}
 	public void test5(){
 		Individual p2 = new Individual();
@@ -71,11 +52,8 @@ public class US03and12Test extends TestCase{
 		p2.setAlive(true);
 		p2.setBirthday("1935-08-1");
 		p2.setDeath("1941-08-1");
-		
-		List<Individual> peoplelist = new ArrayList<>();
-		peoplelist.add(p2);
-		//System.out.println(US03.US03(peoplelist));
-		Assert.assertTrue(US03and12.US03(peoplelist));;
+
+		Assert.assertTrue(US03and12.US03(p2));;
 	}
 	public void test6(){
 		Family f1 = new Family();

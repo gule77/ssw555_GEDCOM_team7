@@ -4,34 +4,48 @@ import java.util.Map;
 
 public class US03and12 {
 
-	public static boolean US03(List<Individual> individualList) {
+//	public static boolean US03(List<Individual> individualList) {
+//		boolean res = true;
+//		//System.out.println(individualList);
+//		List<Individual> deathErrorList = new ArrayList<>();
+//		for(Individual person: individualList) {
+//			if(!person.getDeath().equals("NA")) {
+//				String birthStr = person.getBirthday();
+//				String deathStr = person.getDeath();
+//				boolean re=HelperFuctions.isDateValid(deathStr,birthStr);
+//				if(re==false) {
+//					deathErrorList.add(person);
+//				}
+//			}
+//		}
+//		if(deathErrorList.isEmpty()) {
+//			//System.out.println("No error");
+//			res = true;
+//		}else {
+//			//System.out.println("Error List");
+//			for (Individual person : deathErrorList) {
+//				System.out.println("ERROR: INDIVIDUAL: US03: "+person.getLine()+": "+person.getId()+": Died "+person.getDeath()+" before born "+person.getBirthday());				 
+//				//System.out.println("ID:"+person.getId()+"	| Name:"+person.getName()+"	| Birth:"+person.getBirthday()+"	| Death:"+person.getDeath());
+//			}
+////			System.out.println();
+//			res = false;
+//		}
+//		return res;
+//	}
+	public static boolean US03(Individual person) {
 		boolean res = true;
-		//System.out.println(individualList);
-		List<Individual> deathErrorList = new ArrayList<>();
-		for(Individual person: individualList) {
-			if(!person.getDeath().equals("NA")) {
-				String birthStr = person.getBirthday();
-				String deathStr = person.getDeath();
-				boolean re=HelperFuctions.isDateValid(deathStr,birthStr);
-				if(re==false) {
-					deathErrorList.add(person);
+		if(!person.getDeath().equals("NA")) {
+			String birthStr = person.getBirthday();
+			String deathStr = person.getDeath();
+			boolean re=HelperFuctions.isDateValid(deathStr,birthStr);
+			if(re==false) {
+				System.out.println("ERROR: INDIVIDUAL: US03: "+person.getLine()+": "+person.getId()+
+						": Died "+person.getDeath()+" before born "+person.getBirthday());
+				res = false;
 				}
 			}
-		}
-		if(deathErrorList.isEmpty()) {
-			//System.out.println("No error");
-			res = true;
-		}else {
-			//System.out.println("Error List");
-			for (Individual person : deathErrorList) {
-				System.out.println("ERROR: INDIVIDUAL: US03: "+person.getLine()+": "+person.getId()+": Died "+person.getDeath()+" before born "+person.getBirthday());				 
-				//System.out.println("ID:"+person.getId()+"	| Name:"+person.getName()+"	| Birth:"+person.getBirthday()+"	| Death:"+person.getDeath());
-			}
-//			System.out.println();
-			res = false;
-		}
 		return res;
-	}
+		}
 	
 //	static List<Family> familyList;
 //	List<String> dataGet;

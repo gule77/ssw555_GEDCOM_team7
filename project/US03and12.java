@@ -37,15 +37,22 @@ public class US03and12 {
 		if(!person.getDeath().equals("NA")) {
 			String birthStr = person.getBirthday();
 			String deathStr = person.getDeath();
-			boolean re=HelperFuctions.isDateValid(deathStr,birthStr);
-			if(re==false) {
+//			boolean re=HelperFuctions.isDateValid(deathStr,birthStr);
+//			if(re==false) {
+//				System.out.println("ERROR: INDIVIDUAL: US03: "+person.getLine()+": "+person.getId()+
+//						": Died "+person.getDeath()+" before born "+person.getBirthday());
+//				res = false;
+//				}
+//			}
+			long re = HelperFuctions.daysBetween(birthStr, deathStr);
+			if(re <= 0) {
 				System.out.println("ERROR: INDIVIDUAL: US03: "+person.getLine()+": "+person.getId()+
 						": Died "+person.getDeath()+" before born "+person.getBirthday());
 				res = false;
-				}
 			}
-		return res;
 		}
+		return res;
+	}
 	
 //	static List<Family> familyList;
 //	List<String> dataGet;

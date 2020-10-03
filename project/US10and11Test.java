@@ -1,5 +1,3 @@
-package ssw555_GEDCOM_team7.project;
-
 import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 

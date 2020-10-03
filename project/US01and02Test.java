@@ -5,7 +5,7 @@ import java.util.Map;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class US01andUS02Test {
+public class US01and02Test {
     Individual i01 = new Individual();
     Individual i02 = new Individual();
     Individual i03 = new Individual();

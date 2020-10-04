@@ -71,19 +71,19 @@ public class US06and07Test extends TestCase {
     }
     //US06
     public void test1() {
-        Assert.assertTrue(US06and07.US06(familyList1, individualList1, map1));
+        Assert.assertTrue(US06and07.US06(familyList1, map1));
       }
     public void test2() {
-        Assert.assertEquals(US06and07.US06(familyList1, individualList1, map1),true);
+        Assert.assertEquals(US06and07.US06(familyList1, map1),true);
       }
     public void test3() {
-        Assert.assertEquals(US06and07.US06(familyList2, individualList2, map2),false);
+        Assert.assertEquals(US06and07.US06(familyList2, map2),false);
       }
     public void test4() {
-        Assert.assertNotEquals(US06and07.US06(familyList2, individualList2, map2),true);
+        Assert.assertNotEquals(US06and07.US06(familyList2, map2),true);
       }
     public void test5() {
-        Assert.assertNotEquals(US06and07.US06(familyList2, individualList2, map2),US06and07.US06(familyList1, individualList1, map1));
+        Assert.assertNotEquals(US06and07.US06(familyList2, map2),US06and07.US06(familyList1, map1));
       }
     //US07
     public void test6() {

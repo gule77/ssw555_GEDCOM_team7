@@ -5,7 +5,7 @@ import java.time.Period;
 
 public class US06and07 {
 	//Divorce can only occur before death of both spouses
-	public static boolean US06(List<Family> familyList,List<Individual> individualList, Map<String, Individual> individualMap){
+	public static boolean US06(List<Family> familyList, Map<String, Individual> individualMap){
 		boolean res = true;
 		for (Family family : familyList) {
 			if(!family.getDivorced().equals("NA")) {
@@ -68,7 +68,7 @@ public class US06and07 {
 				int daydeathInt = Integer.parseInt(daydeathStr);
 				LocalDate deathDate = LocalDate.of(yeardeathInt, monthdeathInt, daydeathInt);
 				Period p = Period.between(birthDate, deathDate);
-				if(p.getYears() > 150) {
+				if(p.getYears() >= 150) {
 					System.out.println("ERROR: INDIVIDUAL: US07: " + person.getLine() + ": " + person.getId() + ": More than 150 years old at death - Brith " +
 							birthDate + ": Death " + deathDate ); 
 					res = false;
@@ -76,7 +76,7 @@ public class US06and07 {
 			} else {//Alive
 				LocalDate today = LocalDate.now();
 				Period p = Period.between(birthDate, today);
-				if(p.getYears() > 150) {
+				if(p.getYears() >= 150) {
 					System.out.println("ERROR: INDIVIDUAL: US07: " + person.getLine() + ": " + person.getId() + ": More than 150 years old at death - Brith " +
 							birthDate); 
 					res = false;

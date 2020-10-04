@@ -5,7 +5,7 @@ import java.util.*;
 
 import org.junit.jupiter.api.Test;
 
-class Test08and09 extends HelperFuctions{
+class US08and09Test extends HelperFuctions{
 	
 	Family f0 = new Family();
     Family f1 = new Family();

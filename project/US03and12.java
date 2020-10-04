@@ -45,7 +45,7 @@ public class US03and12 {
 //				}
 //			}
 			long re = HelperFuctions.daysBetween(birthStr, deathStr);
-			if(re <= 0) {
+			if(re < 0) {
 				System.out.println("ERROR: INDIVIDUAL: US03: "+person.getLine()+": "+person.getId()+
 						": Died "+person.getDeath()+" before born "+person.getBirthday());
 				res = false;
@@ -65,21 +65,53 @@ public class US03and12 {
     	Individual wife = individualMap.get(wifeID);
         List<Individual> childList = f.getChildren();
         
+        String[] strArr= husband.getBirthday().split("-");
+        String hd= strArr[2];
+        int hd2= Integer.parseInt(hd);
+        //System.out.println(hd2);
+        String[] strArr2= wife.getBirthday().split("-");
+        String wd= strArr2[2];
+        int wd2= Integer.parseInt(wd);
+        //System.out.println(wd2);
+        
     	for (Individual c : childList) {
         	String birth = c.getBirthday();
-        		if (HelperFuctions.yearsBetween(husband.getBirthday(), birth) >= 80) {
+        	String[] strArr3= birth.split("-");
+        	String cd= strArr3[2];
+        	int cd2= Integer.parseInt(cd);
+        	//System.out.println(cd2);
+        	
+        		if (HelperFuctions.monthsBetween(husband.getBirthday(), birth) > (80*12)) {
         			res = false;
 					System.out.println("ERROR: FAMILY: US12: "+f.getLine()+": "+f.getID()+
 							" : Husband's ("+husband.getId()+ ") birth "+husband.getBirthday()+
 							" is more then 80 years old at the child ("+c.getId()+") birth "
 							+c.getBirthday());
         		}
-        		if (HelperFuctions.yearsBetween(wife.getBirthday(), birth) >= 60) {
+        		if (HelperFuctions.monthsBetween(husband.getBirthday(), birth) == (80*12)) {
+        			if(hd2<=cd2) {
+            			res = false;
+    					System.out.println("ERROR: FAMILY: US12: "+f.getLine()+": "+f.getID()+
+    							" : Husband's ("+husband.getId()+ ") birth "+husband.getBirthday()+
+    							" is more then 80 years old at the child ("+c.getId()+") birth "
+    							+c.getBirthday());
+        			}
+        		}
+        		if (HelperFuctions.monthsBetween(wife.getBirthday(), birth) > (60*12)) {
         			res = false;
 					System.out.println("ERROR: FAMILY: US12: "+f.getLine()+": "+f.getID()+
 							" : Wife's ("+wife.getId()+ ") birth "+wife.getBirthday()+
 							" is more then 60 years old at the child ("+c.getId()+") birth "
 							+c.getBirthday());
+        		}
+        		if (HelperFuctions.monthsBetween(wife.getBirthday(), birth) == (60*12)) {
+        			if(wd2<=cd2) {
+            			res = false;
+    					System.out.println("ERROR: FAMILY: US12: "+f.getLine()+": "+f.getID()+
+    							" : Wife's ("+wife.getId()+ ") birth "+wife.getBirthday()+
+    							" is more then 60 years old at the child ("+c.getId()+") birth "
+    							+c.getBirthday());
+        			}
         		}
     	}
 		

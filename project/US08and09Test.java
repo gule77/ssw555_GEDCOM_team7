@@ -65,7 +65,7 @@ class US08and09Test extends HelperFuctions{
 		individualMap.put("I58", i58);
 		individualMap.put("I59", i59);
 
-		
+		f0.setID("F0");
 		f0.setHusbandId("I50");
 		f0.setWifeId("I51");
 		f0.setMarried("1994-02-22");
@@ -76,6 +76,7 @@ class US08and09Test extends HelperFuctions{
 	    f0.getChildren().add(individualWithIdAndBirthday(2, 1999, 7, 22));
 	    f0.getChildren().add(individualWithIdAndBirthday(3, 2005, 10, 19));
 	    
+	    f1.setID("F1");
 	    f1.setHusbandId("I52");
 	    f1.setWifeId("I53");
 	    f1.setMarried("1999-02-22");
@@ -86,6 +87,7 @@ class US08and09Test extends HelperFuctions{
 	    f1.getChildren().add(individualWithIdAndBirthday(6, 1999, 7, 22));
 	    f1.getChildren().add(individualWithIdAndBirthday(7, 2005, 10, 19));
 	    
+	    f2.setID("F2");
 	    f2.setHusbandId("I54");
 	    f2.setWifeId("I55");
 	    f2.setMarried("1994-02-22");
@@ -96,6 +98,7 @@ class US08and09Test extends HelperFuctions{
 	    f2.getChildren().add(individualWithIdAndBirthday(10, 1999, 7, 22));
 	    f2.getChildren().add(individualWithIdAndBirthday(11, 2005, 10, 19));
 	    
+	    f3.setID("F3");
 	    f3.setHusbandId("I56");
 	    f3.setWifeId("I57");
 	    f3.setMarried("1996-02-11");
@@ -106,6 +109,7 @@ class US08and09Test extends HelperFuctions{
 	    f3.getChildren().add(individualWithIdAndBirthday(14, 1999, 7, 22));
 	    f3.getChildren().add(individualWithIdAndBirthday(15, 2005, 10, 19));
 	    
+	    f4.setID("F4");
 	    f4.setHusbandId("I58");
 	    f4.setWifeId("I59");
 	    f4.setMarried("1994-02-22");

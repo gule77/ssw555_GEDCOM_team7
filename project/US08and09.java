@@ -22,10 +22,13 @@ public class US08and09{
         	String birth = c.getBirthday();
         	if (HelperFuctions.daysBetween(marriageDate, birth) < 0) {
         		res = false;
+        		System.out.println("ANOMALY: FAMILY: US08: 0: " + f.getID() + ": " + "child " + c.getId() + " born " + c.getBirthday() + " before marriage on " + f.getMarried());
         	}
         	
         	if (HelperFuctions.monthsBetween(divorceDate, birth) > 9) {
         		res = false;
+        		System.out.println("ANOMALY: FAMILY: US08: 0: " + f.getID() + ": " + "child " + c.getId() + " born " + c.getBirthday() + " after divorce on " + f.getDivorced());
+
         	}
         }
         
@@ -46,11 +49,15 @@ public class US08and09{
     		if (husband.getDeath() != null) {
         		if (HelperFuctions.monthsBetween(husband.getDeath(), birth) > 9) {
         			res = false;
+            		System.out.println("ANOMALY: FAMILY: US09: 0: " + f.getID() + ": " + "child " + c.getId() + " born " + c.getBirthday() + " after father's death " + husband.getDeath());
+
         		}
         	}
         	if (wife.getDeath() != null) {
         		if (HelperFuctions.daysBetween(wife.getDeath(), birth) > 0) {
         			res = false;
+            		System.out.println("ANOMALY: FAMILY: US09: 0: " + f.getID() + ": " + "child " + c.getId() + " born " + c.getBirthday() + " after mother's death " + wife.getDeath());
+
         		}
         	}
     	}

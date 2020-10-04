@@ -1,4 +1,4 @@
-package assignment04;
+//package assignment04;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -16,68 +16,81 @@ public class US04and05 {
 	 * the family's divorce date is before the marriage date -> false
 	 */
 	public boolean US04(ArrayList<Family> family) {
-
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		// SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		int f = 0;
 		for (Family fam : family) {
-			if (fam.getDivorced() == "n") { // If divorced, it will skip the return statement
-				continue;
-			}
-			Date mDate = fam.getMarriageDate();
-			Date dDate = fam.getDivorcedDate();
-			if (mDate == null) {
-				System.out.println("ERROR: US04: No marriage date available for family: " + fam.getID());
-				continue;
-			}
-			if (dDate == null) {
+			String marriageDate = fam.getMarried();
+			String divorceDate = fam.getDivorced();
+			if (fam.getDivorced().equals("null")) {
 				System.out.println("ERROR: US04: No divorce date available for divorced family: " + fam.getID());
 				continue;
 			}
-			if (dDate.before(mDate)) {
-				System.out.println("ERROR: FAMILY: US04: " + fam.getID() + ": Divorced "
-						+ simpleDateFormat.format(dDate) + " before married " + simpleDateFormat.format(mDate));
+
+			long yearsBetween = HelperFuctions.yearsBetween(divorceDate, marriageDate);
+			long monthsBetween = HelperFuctions.monthsBetween(divorceDate, marriageDate);
+			long daysBetween = HelperFuctions.daysBetween(divorceDate, marriageDate);
+
+			if (yearsBetween > 0) {
+				System.out.println("ERROR: FAMILY: US04: " + fam.getID() + ": Divorced year" + divorceDate
+						+ " before married year" + marriageDate);
+				f = 1;
+				continue;
+			} else if (monthsBetween > 0) {
+				System.out.println("ERROR: FAMILY: US04: " + fam.getID() + ": Divorced month" + divorceDate
+						+ " before married month" + marriageDate);
+				f = 1;
+				continue;
+			} else if (daysBetween > 0) {
+				System.out.println("ERROR: FAMILY: US04: " + fam.getID() + ": Divorced day" + divorceDate
+						+ " before married day" + marriageDate);
 				f = 1;
 				continue;
 			}
 		}
-		if (f == 0)
-			return true;
-		else
+		if (f == 1)
 			return false;
+		return true;
 	}
 
+	/*
+	 * Bin Sun Test US05 Checks that the death date does not occur before the
+	 * marriage date
+	 * 
+	 * @param people, family - an array of families to check and an array of people to check
+	 * 
+	 * @return - if the family's death date is after the marriage date -> true 
+	 * if the family's divorce date is before the death date -> false
+	 */
 	public boolean US05(ArrayList<Individual> people, ArrayList<Family> family) {
 		int f = 0;
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		for (Family fam : family) {
-			String dad = fam.getDad().getID();
-			String mom = fam.getMom().getID();
+			String hus = fam.getHusbandID();
+			String wif = fam.getWifeID();
 			boolean dadDead = false;
-			Date dadDeathDate = null;
+			String deathDate = null;
 			boolean momDead = false;
-			Date momDeathDate = null;
+
 			for (Individual p : people) {
-				
-				if (p.getID().equals(dad)) {
-					dadDead = p.isDeath();
-					System.out.println("DadDead: "+ dadDead);
+				if (p.getId().equals(hus)) {
+					dadDead = p.getIsAlive();
+					System.out.println("DadDead: " + dadDead);
 					if (dadDead) {
-						dadDeathDate = p.getDeathDate();
+						deathDate = p.getDeath();
 					}
 				}
-				if (p.getID().equals(mom)) {
-					momDead = p.isDeath();
+				if (p.getId().equals(wif)) {
+					momDead = p.getIsAlive();
 					if (momDead) {
-						momDeathDate = p.getDeathDate();
+						deathDate = p.getDeath();
 					}
 				}
 			}
-			Date mDate = fam.getMarriageDate();
-			if (dadDeathDate == null && dadDead) {
+			String mDate = fam.getMarried();
+			if (deathDate == null && dadDead == false) {
 				System.out.println("ERROR: US05: No death date available for father");
 				continue;
 			}
-			if (momDeathDate == null && momDead) {
+			if (deathDate == null && momDead == false) {
 				System.out.println("ERROR: US05: No death date available for mother");
 				continue;
 			}
@@ -86,21 +99,24 @@ public class US04and05 {
 				continue;
 
 			}
-			System.out.println(dadDead + "=======");
+			//System.out.println(dadDead + "=======");
+			long yearsBetween = HelperFuctions.yearsBetween(deathDate, mDate);
+			long monthsBetween = HelperFuctions.monthsBetween(deathDate, mDate);
+			long daysBetween = HelperFuctions.daysBetween(deathDate, mDate);
 			if (dadDead) {
-				if (dadDeathDate.before(mDate)) {
+				if (yearsBetween > 0 || monthsBetween > 0 || daysBetween > 0) {
 					System.out.println("ERROR: FAMILY: US05 " + fam.getID() + " Married "
-							+ simpleDateFormat.format(fam.getMarriageDate()) + " after husband's (" + dad
-							+ ") death on " + simpleDateFormat.format(dadDeathDate));
+							+ fam.getMarried() + " after husband's " 
+							+ " death on " + deathDate);
 					f = 1;
 					continue;
 				}
 			}
 			if (momDead) {
-				if (momDeathDate.before(mDate)) {
+				if (yearsBetween > 0 || monthsBetween > 0 || daysBetween > 0) {
 					System.out.println("ERROR: FAMILY: US05 " + fam.getID() + " Married "
-							+ simpleDateFormat.format(fam.getMarriageDate()) + " after wife's (" + mom + ") death on "
-							+ simpleDateFormat.format(momDeathDate));
+							+ fam.getMarried() + " after wife's " + " death on "
+							+ deathDate);
 					f = 1;
 					continue;
 				}

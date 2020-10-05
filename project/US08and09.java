@@ -76,14 +76,14 @@ public class US08and09{
 //        		System.out.println("birth: " + birth);
             	if (HelperFuctions.monthsBetween(husband.getDeath(), birth) > 9) {
             			res = false;
-                		System.out.println("ANOMALY: FAMILY: US09: 0: " + f.getID() + ": " + "child " + c.getId() + " born " + c.getBirthday() + " after father's death " + husband.getDeath());
+                		System.out.println("ERROR: FAMILY: US09: 0: " + f.getID() + ": " + "child " + c.getId() + " born " + c.getBirthday() + " after father's death " + husband.getDeath());
 
             		}
             	
             	
 	            if (HelperFuctions.daysBetween(wife.getDeath(), birth) > 0) {
 	            			res = false;
-	                		System.out.println("ANOMALY: FAMILY: US09: 0: " + f.getID() + ": " + "child " + c.getId() + " born " + c.getBirthday() + " after mother's death " + wife.getDeath());
+	                		System.out.println("ERROR: FAMILY: US09: 0: " + f.getID() + ": " + "child " + c.getId() + " born " + c.getBirthday() + " after mother's death " + wife.getDeath());
 	
 	            		}
             	

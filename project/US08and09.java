@@ -71,45 +71,46 @@ public class US08and09{
         }else if ((!husband.getDeath().equals("NA")) && (!wife.getDeath().equals("NA")) && childList != null) {
         	for (Individual c : childList) {
             	String birth = c.getBirthday();
-        		if (!husband.getDeath().equals("NA")) {
-//        			System.out.println("husband death: " + husband.getDeath());
-//        			System.out.println("birth: " + birth);
-            		if (HelperFuctions.monthsBetween(husband.getDeath(), birth) > 9) {
+        		
+//        		System.out.println("husband death: " + husband.getDeath());
+//        		System.out.println("birth: " + birth);
+            	if (HelperFuctions.monthsBetween(husband.getDeath(), birth) > 9) {
             			res = false;
                 		System.out.println("ANOMALY: FAMILY: US09: 0: " + f.getID() + ": " + "child " + c.getId() + " born " + c.getBirthday() + " after father's death " + husband.getDeath());
 
             		}
-            	}
-            	if (!wife.getDeath().equals("NA")) {
-            		if (HelperFuctions.daysBetween(wife.getDeath(), birth) > 0) {
-            			res = false;
-                		System.out.println("ANOMALY: FAMILY: US09: 0: " + f.getID() + ": " + "child " + c.getId() + " born " + c.getBirthday() + " after mother's death " + wife.getDeath());
-
-            		}
-            	}
+            	
+            	
+	            if (HelperFuctions.daysBetween(wife.getDeath(), birth) > 0) {
+	            			res = false;
+	                		System.out.println("ANOMALY: FAMILY: US09: 0: " + f.getID() + ": " + "child " + c.getId() + " born " + c.getBirthday() + " after mother's death " + wife.getDeath());
+	
+	            		}
+            	
         	}
-        }else if (husband.getDeath()!=null && childList != null){
+        }else if (!husband.getDeath().equals("NA")&& childList != null){
         	for (Individual c : childList) {
             	String birth = c.getBirthday();
-        		if (!husband.getDeath().equals("NA")) {
-            		if (HelperFuctions.monthsBetween(husband.getDeath(), birth) > 9) {
-            			res = false;
-                		System.out.println("ANOMALY: FAMILY: US09: 0: " + f.getID() + ": " + "child " + c.getId() + " born " + c.getBirthday() + " after father's death " + husband.getDeath());
+            	System.out.println("husband death " + husband.getDeath());
+            	if (HelperFuctions.monthsBetween(husband.getDeath(), birth) > 9) {
+            		res = false;
+                	System.out.println("ANOMALY: FAMILY: US09: 0: " + f.getID() + ": " + "child " + c.getId() + " born " + c.getBirthday() + " after father's death " + husband.getDeath());
 
-            		}
             	}
+            	
         	}
         }else if (!wife.getDeath().equals("NA") && childList != null) {
         	for (Individual c : childList) {
             	String birth = c.getBirthday();
-        		
-            	if (!wife.getDeath().equals("NA")) {
+//            	System.out.println("birth: " + birth);
+//            	System.out.println("mother death " + wife.getDeath());
+            	
             		if (HelperFuctions.daysBetween(wife.getDeath(), birth) > 0) {
             			res = false;
                 		System.out.println("ANOMALY: FAMILY: US09: 0: " + f.getID() + ": " + "child " + c.getId() + " born " + c.getBirthday() + " after mother's death " + wife.getDeath());
 
             		}
-            	}
+            	
         	}
         }
         
@@ -168,9 +169,9 @@ public class US08and09{
         
       //parents of f0
       		i50.setId("I50");
-      		i50.setDeath("2008-08-08");
+      		i50.setDeath("NA");
       		i51.setId("I51");
-      		i51.setDeath("2018-08-30");
+      		i51.setDeath("2010-08-30");
       		//parents of f1
       		i52.setId("I52");
       		i52.setDeath("1999-08-08");
@@ -192,7 +193,7 @@ public class US08and09{
       		i59.setId("I59");
       		i59.setDeath("1999-08-08");
 		
-		i0.setBirthday("1996-02-12");
+		i0.setBirthday("2012-02-12");
 		i1.setBirthday("1997-08-28");
 		i2.setBirthday("1999-07-22");
 		i3.setBirthday("2005-10-19");

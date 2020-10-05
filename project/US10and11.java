@@ -16,14 +16,14 @@ public class US10and11 {
             ArrayList<Individual> individualList) {
         boolean result = true;
         if (familyList.isEmpty()) {
-            System.out.println("Family list is empty");
+            System.out.println("WARNING: US10: Family list is empty");
             if (individualList.isEmpty()) {
-                System.out.println("Individual list is empty");
+                System.out.println("WARNING: US10: Individual list is also empty");
             }
             return true;
         }
         if (individualList.isEmpty()) {
-            System.out.println("Error: empty individual list");
+            System.out.println("ERROR: US10: empty individual list");
             return false;
         }
         for (Family family : familyList) {
@@ -33,11 +33,17 @@ public class US10and11 {
             String husbandBirth = "";
             String wifeBirth = "";
             if (husbandID == null || wifeID == null) {
-                System.out.println("ERROR: husband/wife ID in family missing.");
+                System.out.println("ERROR: FAMILY: US10: husband/wife ID in family missing ");
                 result = false;
+                continue;
             }
             for (Individual individual : individualList) {
-                if (husbandID.equals(individual.getId())) {
+                if (individual.getId() == null) {
+                    System.out.println("ERROR: INDIVIDUAL: US10: individual without id ");
+                    result = false;
+                    continue;
+                }
+                else if (husbandID.equals(individual.getId())) {
                     husbandBirth = individual.getBirthday();
                 }
                 else if (wifeID.equals(individual.getId())) {
@@ -45,7 +51,7 @@ public class US10and11 {
                 }
             }
             if (husbandBirth.isEmpty() || wifeBirth.isEmpty() || marriageDate == null) {
-                System.out.println("ERROR: date needed missing");
+                System.out.println("ERROR: FAMILY: US10: birth or marriage date needed missing ");
                 result = false;
             }
             long marriageAgeH = HelperFuctions.yearsBetween(husbandBirth, marriageDate);
@@ -79,7 +85,7 @@ public class US10and11 {
             return result;
         }
         if (individualList.size() < 1) {
-            System.out.println("Individual list is empty");
+            System.out.println("ERROR: US11: Individual list is empty");
             return false;
         }
         
@@ -87,19 +93,20 @@ public class US10and11 {
             for (int j = i + 1; j < familyList.size(); j++) {
                 Family family1 = familyList.get(i);
                 Family family2 = familyList.get(j);
-                if (family1.getMarried() == null || family2.getMarried() == null) {
-                    System.out.println("ERROR: Family marriage date missing");
+                if (family1.getMarried() == null || family2.getMarried() == null ||
+                        family1.getMarried().equals("NA") || family2.getMarried().equals("NA")) {
+                    System.out.println("ERROR: FAMILY: US11: Family marriage date missing");
                     result = false;
                     continue;
                     }
                 else if (family1.getHusbandID() == null || family1.getWifeID() == null ||
                         family2.getHusbandID() == null || family2.getWifeID() == null) {
-                    System.out.println("ERROR: Family member ID missing");
+                    System.out.println("ERROR: FAMILY: US11: Family member ID missing");
                     result = false;
                     continue;
                 }
                 else if (family1.getHusbandID().equals(family2.getHusbandID())) {
-                    if (compareDate(family1.getMarried(), family2.getMarried())) {
+                    if (HelperFuctions.daysBetween(family1.getMarried(), family2.getMarried()) < 0) {
                         String wifeDeath = "";
                         for (Individual individual : individualList) {
                             if (individual.getId().equals(family2.getWifeID())) {
@@ -109,13 +116,13 @@ public class US10and11 {
                             }
                         }
                         if (wifeDeath.isEmpty()) {
-                            if (family2.getDivorced() == null) {
+                            if (family2.getDivorced() == null || family2.getDivorced().equals("NA")) {
                                 System.out.println("ERROR: FAMILY: US11: " + Integer.toString(family1.getLine()) +
                                 ": " + family1.getID() + ": Husband re-marriage date " + family1.getMarried() + 
                                 " without divorce ");
                                 result = false;
                             }
-                            else if (compareDate(family2.getDivorced(), family1.getMarried())) {
+                            else if (HelperFuctions.daysBetween(family2.getDivorced(), family1.getMarried()) < 0) {
                                 System.out.println("ERROR: FAMILY: US11: " + Integer.toString(family1.getLine()) +
                                 ": " + family1.getID() + ": Husband re-marriage date " + family1.getMarried() + 
                                 " is earlier than divorce date " + family2.getDivorced());
@@ -123,7 +130,7 @@ public class US10and11 {
                             }
                         }
                         else {
-                            if (compareDate(wifeDeath, family1.getMarried())) {
+                            if (HelperFuctions.daysBetween(wifeDeath, family1.getMarried()) < 0) {
                                 System.out.println("ERROR: FAMILY: US11: " + Integer.toString(family1.getLine()) +
                                 ": " + family1.getID() + ": Husband re-marriage date " + family1.getMarried() + 
                                 " is earlier than ex-wife death date " + wifeDeath);
@@ -146,13 +153,13 @@ public class US10and11 {
                             }
                         }
                         if (wifeDeath.isEmpty()) {
-                            if (family1.getDivorced() == null) {
+                            if (family1.getDivorced() == null || family1.getDivorced().equals("NA")) {
                                 System.out.println("ERROR: FAMILY: US11: " + Integer.toString(family2.getLine()) +
                                 ": " + family2.getID() + ": Husband re-marriage date " + family2.getMarried() + 
                                 " without divorce ");
                                 result = false;
                             }
-                            else if (compareDate(family1.getDivorced(), family2.getMarried())) {
+                            else if (HelperFuctions.daysBetween(family1.getDivorced(), family2.getMarried()) < 0) {
                                 System.out.println("ERROR: FAMILY: US11: " + Integer.toString(family2.getLine()) +
                                 ": " + family2.getID() + ": Husband re-marriage date " + family2.getMarried() + 
                                 " is earlier than divorce date " + family1.getDivorced());
@@ -160,7 +167,7 @@ public class US10and11 {
                             }
                         }
                         else {
-                            if (compareDate(wifeDeath, family2.getMarried())) {
+                            if (HelperFuctions.daysBetween(wifeDeath, family2.getMarried()) < 0) {
                                  System.out.println("ERROR: FAMILY: US11: " + Integer.toString(family2.getLine()) +
                                 ": " + family2.getID() + ": Husband re-marriage date " + family2.getMarried() + 
                                 " is earlier than ex-wife death date " + wifeDeath);
@@ -170,7 +177,7 @@ public class US10and11 {
                     }
                 }
                 else if (family1.getWifeID().equals(family2.getWifeID())) {
-                    if (compareDate(family1.getMarried(), family2.getMarried())) {
+                    if (HelperFuctions.daysBetween(family1.getMarried(), family2.getMarried()) > 0) {
                         String husbandDeath = "";
                         for (Individual individual : individualList) {
                             if (individual.getId().equals(family2.getHusbandID())) {
@@ -180,13 +187,13 @@ public class US10and11 {
                             }
                         }
                         if (husbandDeath.isEmpty()) {
-                            if (family2.getDivorced() == null) {
+                            if (family2.getDivorced() == null || family2.getDivorced().equals("NA")) {
                                 System.out.println("ERROR: FAMILY: US11: " + Integer.toString(family1.getLine()) +
                                 ": " + family1.getID() + ": Wife re-marriage date " + family1.getMarried() + 
                                 " without divorce ");
                                 result = false;
                             }
-                            else if(compareDate(family2.getDivorced(), family1.getMarried())) {
+                            else if(HelperFuctions.daysBetween(family2.getDivorced(), family1.getMarried()) < 0) {
                                 System.out.println("ERROR: FAMILY: US11: " + Integer.toString(family1.getLine()) +
                                 ": " + family1.getID() + ": Wife re-marriage date " + family1.getMarried() + 
                                 " is earlier than divorce date " + family2.getDivorced());
@@ -194,7 +201,7 @@ public class US10and11 {
                             }
                         }
                         else {
-                            if (compareDate(husbandDeath, family1.getMarried())) {
+                            if (HelperFuctions.daysBetween(husbandDeath, family1.getMarried()) < 0) {
                                 System.out.println("ERROR: FAMILY: US11: " + Integer.toString(family1.getLine()) +
                                 ": " + family1.getID() + ": Wife re-marriage date " + family1.getMarried() + 
                                 " is earlier than ex-husband death date " + husbandDeath);
@@ -217,13 +224,13 @@ public class US10and11 {
                             }
                         }
                         if (husbandDeath.isEmpty()) {
-                            if (family1.getDivorced() == null) {
+                            if (family1.getDivorced() == null || family1.getDivorced().equals("NA")) {
                                 System.out.println("ERROR: FAMILY: US11: " + Integer.toString(family2.getLine()) +
                                 ": " + family2.getID() + ": Wife re-marriage date " + family2.getMarried() + 
                                 " without divorce ");
                                 result = false;
                             }
-                            else if (compareDate(family1.getDivorced(), family2.getMarried())) {
+                            else if (HelperFuctions.daysBetween(family1.getDivorced(), family2.getMarried()) < 0) {
                                 System.out.println("ERROR: FAMILY: US11: " + Integer.toString(family2.getLine()) +
                                 ": " + family2.getID() + ": Wife re-marriage date " + family2.getMarried() + 
                                 " is earlier than divorce date " + family1.getDivorced());
@@ -231,7 +238,7 @@ public class US10and11 {
                             }
                         }
                         else {
-                            if (compareDate(husbandDeath, family2.getMarried())) {
+                            if (HelperFuctions.daysBetween(husbandDeath, family2.getMarried()) < 0) {
                                 System.out.println("ERROR: FAMILY: US11: " + Integer.toString(family2.getLine()) +
                                 ": " + family2.getID() + ": Wife re-marriage date " + family2.getMarried() + 
                                 " is earlier than ex-husband death date " + husbandDeath);
@@ -243,42 +250,6 @@ public class US10and11 {
             }
         }
         return result;
-    }
-    
-    /**
-     * helper function that can be added to helperFunction class
-     * @param deathStr death date
-     * @param birthStr birth date
-     * @return true if death date later than birth date
-     */
-    public static boolean compareDate(String deathStr, String birthStr) {
-		
-	boolean flag = false;
-                
-	String yearBirthStr = birthStr.substring(0,4);
-	String yearDeathStr = deathStr.substring(0,4);
-	int yearBirthInt = Integer.parseInt(yearBirthStr);
-	int yearDeathInt = Integer.parseInt(yearDeathStr);
-	String monthBirthStr = birthStr.substring(5,7);
-	String monthDeathStr = deathStr.substring(5,7);
-	int monthBirthInt = Integer.parseInt(monthBirthStr);
-	int monthDeathInt = Integer.parseInt(monthDeathStr);
-	String dayBirthStr = birthStr.substring(8);
-	String dayDeathStr = deathStr.substring(8);
-	int dayBirthInt = Integer.parseInt(dayBirthStr);
-	int dayDeathInt = Integer.parseInt(dayDeathStr);
-	if(yearDeathInt > yearBirthInt) {
-		flag = true;
-	}else if(yearDeathInt == yearBirthInt) {
-		if(monthBirthInt < monthDeathInt) {
-			flag = true;
-		}else if(monthBirthInt == monthDeathInt) {
-			if(dayBirthInt < dayDeathInt) {
-				flag = true;
-			}
-		}
-	}		
-	return flag;
     }
     
 }

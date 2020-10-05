@@ -3,7 +3,7 @@ import java.text.ParseException;
 public class Sprint1Test {
 	public static void main(String[] args) {
 		GedcomParse proj3 = new GedcomParse();
-		proj3.readFile("team7.ged");
+		proj3.readFile("TestForSprint1.ged");
 		proj3.writeIntoIndividualList();
 		proj3.writeIntofamilyList();
 		System.out.println("People");

@@ -15,14 +15,14 @@ public class US04and05 {
 	 * @return - if the family's divorce date is after the marriage date -> true if
 	 * the family's divorce date is before the marriage date -> false
 	 */
-	public boolean US04(ArrayList<Family> family) {
+	public static boolean US04(ArrayList<Family> family) {
 		// SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		int f = 0;
 		for (Family fam : family) {
 			String marriageDate = fam.getMarried();
 			String divorceDate = fam.getDivorced();
-			if (fam.getDivorced().equals("null")) {
-				System.out.println("ERROR: US04: No divorce date available for divorced family: " + fam.getID());
+			if (fam.getDivorced().equals("NA")) {
+				//System.out.println("ERROR: US04: No divorce date available for divorced family: " + fam.getID());
 				continue;
 			}
 
@@ -61,45 +61,43 @@ public class US04and05 {
 	 * @return - if the family's death date is after the marriage date -> true 
 	 * if the family's divorce date is before the death date -> false
 	 */
-	public boolean US05(ArrayList<Individual> people, ArrayList<Family> family) {
+	public static boolean US05(ArrayList<Individual> people, ArrayList<Family> family) {
 		int f = 0;
 		for (Family fam : family) {
 			String hus = fam.getHusbandID();
 			String wif = fam.getWifeID();
 			boolean dadDead = false;
-			String deathDate = null;
+			String deathDate = "NA";
 			boolean momDead = false;
 
 			for (Individual p : people) {
 				if (p.getId().equals(hus)) {
-					dadDead = p.getIsAlive();
-					System.out.println("DadDead: " + dadDead);
+					dadDead = !p.getIsAlive();
 					if (dadDead) {
 						deathDate = p.getDeath();
 					}
 				}
 				if (p.getId().equals(wif)) {
-					momDead = p.getIsAlive();
+					momDead = !p.getIsAlive();
 					if (momDead) {
 						deathDate = p.getDeath();
 					}
 				}
 			}
 			String mDate = fam.getMarried();
-			if (deathDate == null && dadDead == false) {
-				System.out.println("ERROR: US05: No death date available for father");
+			if (deathDate == "NA" && dadDead == false) {
+				//System.out.println("ERROR: US05: No death date available for father");
 				continue;
 			}
-			if (deathDate == null && momDead == false) {
-				System.out.println("ERROR: US05: No death date available for mother");
+			if (deathDate == "NA" && momDead == false) {
+				//System.out.println("ERROR: US05: No death date available for mother");
 				continue;
 			}
-			if (mDate == null) {
-				System.out.println("ERROR: US05: No marriage date available for the family");
+			if (mDate == "NA") {
+				//System.out.println("ERROR: US05: No marriage date available for the family");
 				continue;
 
 			}
-			//System.out.println(dadDead + "=======");
 			long yearsBetween = HelperFuctions.yearsBetween(deathDate, mDate);
 			long monthsBetween = HelperFuctions.monthsBetween(deathDate, mDate);
 			long daysBetween = HelperFuctions.daysBetween(deathDate, mDate);

@@ -33,9 +33,8 @@ public class US10and11 {
             String husbandBirth = "";
             String wifeBirth = "";
             if (husbandID == null || wifeID == null) {
-                System.out.println("ERROR: ID of husband or wife is missing.");
+                System.out.println("ERROR: husband/wife ID in family missing.");
                 result = false;
-                continue;
             }
             for (Individual individual : individualList) {
                 if (husbandID.equals(individual.getId())) {
@@ -88,7 +87,18 @@ public class US10and11 {
             for (int j = i + 1; j < familyList.size(); j++) {
                 Family family1 = familyList.get(i);
                 Family family2 = familyList.get(j);
-                if (family1.getHusbandID().equals(family2.getHusbandID())) {
+                if (family1.getMarried() == null || family2.getMarried() == null) {
+                    System.out.println("ERROR: Family marriage date missing");
+                    result = false;
+                    continue;
+                    }
+                else if (family1.getHusbandID() == null || family1.getWifeID() == null ||
+                        family2.getHusbandID() == null || family2.getWifeID() == null) {
+                    System.out.println("ERROR: Family member ID missing");
+                    result = false;
+                    continue;
+                }
+                else if (family1.getHusbandID().equals(family2.getHusbandID())) {
                     if (compareDate(family1.getMarried(), family2.getMarried())) {
                         String wifeDeath = "";
                         for (Individual individual : individualList) {
@@ -241,7 +251,7 @@ public class US10and11 {
      * @param birthStr birth date
      * @return true if death date later than birth date
      */
-    public boolean compareDate(String deathStr, String birthStr) {
+    public static boolean compareDate(String deathStr, String birthStr) {
 		
 	boolean flag = false;
                 

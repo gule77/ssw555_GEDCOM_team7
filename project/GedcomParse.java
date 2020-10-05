@@ -5,9 +5,9 @@ import java.util.*;
 
 public class GedcomParse {
 
-	List<Individual> individualList;
-	List<Family> familyList;
-	List<String> dataGet;
+	ArrayList<Individual> individualList;
+	ArrayList<Family> familyList;
+	ArrayList<String> dataGet;
 	Map<String, Individual> individualMap;
 	Map<String, Family> familyMap;
 	
@@ -18,10 +18,9 @@ public class GedcomParse {
 		individualMap = new HashMap<String, Individual>();
 		familyMap = new HashMap<String, Family>();
 	}
-	
-	public void readFile() {
+	public void readFile(String filename) {
 		try {
-			InputStream file = new FileInputStream("2.ged");
+			InputStream file = new FileInputStream(filename);
 			BufferedReader reader = new BufferedReader( new InputStreamReader(file));
 			String str = null;
 			while(true) {
@@ -299,12 +298,13 @@ public class GedcomParse {
 			}
 		}
 	}
+	
 
 
 	
 	public static void main(String[] args) {
 		GedcomParse proj3 = new GedcomParse();
-		proj3.readFile();
+		proj3.readFile("team7.ged");
 		proj3.writeIntoIndividualList();
 		proj3.writeIntofamilyList();
 		//

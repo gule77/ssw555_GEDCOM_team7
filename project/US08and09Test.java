@@ -41,17 +41,22 @@ class US08and09Test extends HelperFuctions{
 		i52.setId("I52");
 		i52.setDeath("1999-08-08");
 		i53.setId("I53");
+		i53.setDeath("1999-08-08");
 		//parents of f2
 		i54.setId("I54");
+		i54.setDeath("1999-08-08");
 		i55.setId("I55");
+		i55.setDeath("1999-08-08");
 		//parents of f3
 		i56.setId("I56");
+		i56.setDeath("1999-08-08");
 		i57.setId("I57");
 		i57.setDeath("2005-10-20");
 		//parents of f4
 		i58.setId("I58");
 		i58.setDeath("2005-01-19");
 		i59.setId("I59");
+		i59.setDeath("1999-08-08");
 		
 		
 		individualMap.put("I50", i50);

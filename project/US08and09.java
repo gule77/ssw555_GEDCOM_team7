@@ -166,26 +166,31 @@ public class US08and09{
         
         Map<String, Individual> individualMap = new HashMap<String, Individual>();
         
-        i50.setId("I50");
-		i50.setDeath("2008-08-08");
-		i51.setId("I51");
-		i51.setDeath("2018-08-30");
-		//parents of f1
-		i52.setId("I52");
-		i52.setDeath("1999-08-08");
-		i53.setId("I53");
-		i53.setDeath("1999-08-08");
-		//parents of f2
-		i54.setId("I54");
-		i55.setId("I55");
-		//parents of f3
-		i56.setId("I56");
-		i57.setId("I57");
-		i57.setDeath("2005-10-20");
-		//parents of f4
-		i58.setId("I58");
-		i58.setDeath("2005-01-19");
-		i59.setId("I59");
+      //parents of f0
+      		i50.setId("I50");
+      		i50.setDeath("2008-08-08");
+      		i51.setId("I51");
+      		i51.setDeath("2018-08-30");
+      		//parents of f1
+      		i52.setId("I52");
+      		i52.setDeath("1999-08-08");
+      		i53.setId("I53");
+      		i53.setDeath("1999-08-08");
+      		//parents of f2
+      		i54.setId("I54");
+      		i54.setDeath("1999-08-08");
+      		i55.setId("I55");
+      		i55.setDeath("1999-08-08");
+      		//parents of f3
+      		i56.setId("I56");
+      		i56.setDeath("1999-08-08");
+      		i57.setId("I57");
+      		i57.setDeath("2005-10-20");
+      		//parents of f4
+      		i58.setId("I58");
+      		i58.setDeath("2005-01-19");
+      		i59.setId("I59");
+      		i59.setDeath("1999-08-08");
 		
 		i0.setBirthday("1996-02-12");
 		i1.setBirthday("1997-08-28");

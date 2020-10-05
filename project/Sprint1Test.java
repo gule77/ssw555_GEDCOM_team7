@@ -49,26 +49,44 @@ public class Sprint1Test {
 		}
 		System.out.println("+-----+------------+------------+------------+--------------------+-----------+--------------------+--------------------+");
 		// List
+		/* US04 */ 
 		US04and05.US04(proj3.familyList);
+		
+		/* US05 */ 
 		US04and05.US05(proj3.individualList,proj3.familyList);
+		
+		/* US06 */ 
 		US06and07.US06(proj3.familyList, proj3.individualMap);
+		
+		/* US07 */ 
 		US06and07.US07(proj3.individualList);
+		
+		/* US10 */ 
 		US10and11.us10(proj3.familyList,proj3.individualList);
+		
+		/* US11 */ 
 		US10and11.us11(proj3.familyList,proj3.individualList);
 		//
 		for(Individual person: proj3.individualList) {
+			/* US01 */ 
 			try {
 				US01and02.US01(person);
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			/* US03 */ 
 			US03and12.US03(person);
 		}
 		
 		for (Family family : proj3.familyList) {
+			
+			/* US08 */ 
 			US08and09.US08(family);
+			
+			/* US09 */ 
 			US08and09.US09(family, proj3.individualMap);
+			
 			/* US01 */ 
 			try {
 				US01and02.US01(family);
@@ -76,7 +94,15 @@ public class Sprint1Test {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			/* US12 */ 
 			US03and12.US12(family, proj3.individualMap);
+			
+			/* US13 */ 
+			US13and14.US13(family);
+			
+			/* US14 */ 
+			US13and14.US14(family);
+			
 			/* US02 */ 
 			String husbandid = family.getHusbandID();
 			String wifeid = family.getWifeID();

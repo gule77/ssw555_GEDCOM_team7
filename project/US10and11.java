@@ -33,15 +33,14 @@ public class US10and11 {
             String husbandBirth = "";
             String wifeBirth = "";
             if (husbandID == null || wifeID == null) {
-                System.out.println("ERROR: FAMILY: US10: husband/wife ID in family missing ");
+                System.out.println("ERROR: FAMILY: US10: " + family.getID() + ": husband/wife ID in family missing");
                 result = false;
                 continue;
             }
             for (Individual individual : individualList) {
                 if (individual.getId() == null) {
-                    System.out.println("ERROR: INDIVIDUAL: US10: individual without id ");
+                    System.out.println("ERROR: INDIVIDUAL: US10: individual without id");
                     result = false;
-                    continue;
                 }
                 else if (husbandID.equals(individual.getId())) {
                     husbandBirth = individual.getBirthday();
@@ -51,7 +50,7 @@ public class US10and11 {
                 }
             }
             if (husbandBirth.isEmpty() || wifeBirth.isEmpty() || marriageDate == null) {
-                System.out.println("ERROR: FAMILY: US10: birth or marriage date needed missing ");
+                System.out.println("ERROR: FAMILY: US10: birth or marriage date needed missing");
                 result = false;
             }
             long marriageAgeH = HelperFuctions.yearsBetween(husbandBirth, marriageDate);
@@ -90,20 +89,24 @@ public class US10and11 {
         }
         
         for (int i = 0; i < familyList.size() - 1; i++) {
+            Family family1 = familyList.get(i);
+            if (family1.getMarried() == null || family1.getMarried().equals("NA")) {
+                System.out.println("ERROR: FAMILY: US11: " + Integer.toString(family1.getLine()) + ": " + family1.getID() + ": Family marriage date missing");
+                result = false;
+                continue;
+            }
+            else if (family1.getHusbandID() == null || family1.getWifeID() == null) {
+                System.out.println("ERROR: FAMILY: US11: " + Integer.toString(family1.getLine()) + ": Family member ID missing");
+                result = false;
+                continue;
+            }
             for (int j = i + 1; j < familyList.size(); j++) {
-                Family family1 = familyList.get(i);
                 Family family2 = familyList.get(j);
-                if (family1.getMarried() == null || family2.getMarried() == null ||
-                        family1.getMarried().equals("NA") || family2.getMarried().equals("NA")) {
-                    System.out.println("ERROR: FAMILY: US11: Family marriage date missing");
+                if (family2.getMarried() == null || family2.getMarried().equals("NA")) {
                     result = false;
-                    continue;
                     }
-                else if (family1.getHusbandID() == null || family1.getWifeID() == null ||
-                        family2.getHusbandID() == null || family2.getWifeID() == null) {
-                    System.out.println("ERROR: FAMILY: US11: Family member ID missing");
+                else if (family2.getHusbandID() == null || family2.getWifeID() == null) {
                     result = false;
-                    continue;
                 }
                 else if (family1.getHusbandID().equals(family2.getHusbandID())) {
                     if (HelperFuctions.daysBetween(family1.getMarried(), family2.getMarried()) < 0) {

@@ -22,12 +22,12 @@ public class US01and02 {
         if(!(person.getDeath() == null || person.getDeath().equals("NA"))) {
             Date deathDate = sdf.parse(person.getDeath());
             if(deathDate.after(now)) {
-                System.out.println("Error US01: Dead date of Individual " + person.getId() + " occurs after current date");
+                System.out.println("ERROR INDIVIDUAL US01: " + person.getLine() + ": " + person.getId()+ ": Dead date occurs after current date");
                 res = false;
             }
         }
         if(birthDate.after(now)) {
-            System.out.println("Error US01: Birth date of Individual " + person.getId() + " occurs after current date");
+            System.out.println("ERROR INDIVIDUAL US01: " + person.getLine() + ": " + person.getId()+ ": Birth date  occurs after current date");
             res = false;
         }
         return res;
@@ -43,14 +43,14 @@ public class US01and02 {
         if(!(family.getMarried() == null || family.getMarried().equals("NA"))) {
             Date marriedDate = sdf.parse(family.getMarried());
             if(marriedDate.after(now)) {
-                System.out.println("Error US01: Marriage date of Family " + family.getID() + " occurs after current date");
+                System.out.println("ERROR FAMILY US01: " + family.getLine() + ": "+ family.getID() + ": Marriage date occurs after current date");
                 res = false;
             }
         }
         if(!(family.getDivorced() == null || family.getDivorced().equals("NA"))) {
             Date divorcedDate = sdf.parse(family.getDivorced());
             if(divorcedDate.after(now)) {
-                System.out.println("Error US01: Divorced date of Family " + family.getID() + " occurs after current date");
+                System.out.println("ERROR FAMILY US01: " + family.getLine() + ": "+ family.getID() + ": Divorced date occurs after current date");
                 res = false;
             }
         }
@@ -68,7 +68,7 @@ public class US01and02 {
                Date marriedDate = sdf.parse(family.getMarried());
                Date Birth = sdf.parse(individual.getBirthday());
                if(Birth.after(marriedDate)) {
-                   System.out.println("Error US02: Birth date of " + individual.getId() + " occurs after the marriage date");
+                   System.out.println("ERROR INDIVIDUAL US02: " + individual.getLine() + ": " +  individual.getId() + ": Birth date occurs after the marriage date");
                    res = false;
                }
            }

@@ -4,29 +4,38 @@ public class US17and21 {
 	/*
 	 * If parents do not marry their descendant, return true
 	 */
-	public static boolean US17(Family family) {
+	public static boolean US17(Family family, Map<String, Individual> individualMap, Map<String, Family> familyMap) {
 		boolean result = true;
 		String HusbandID = family.getHusbandID();
 		String WifeID = family.getWifeID();
-		
+    	Individual husband = individualMap.get(HusbandID);
+    	Individual wife = individualMap.get(WifeID);
+    	String HusbandAsHusbandID = husband.getSpouse();
+    	String HusbandAsChildID = husband.getChild();
+    	String WifeAsWifeID = wife.getSpouse();
+    	String WifeAsChildID = wife.getChild();
+    	
 		List<Individual> ChildList = family.getChildren();
 		
-		if(ChildList!=null) {
+		if(HusbandAsHusbandID==WifeAsChildID) {
+			result = printError(family, HusbandID, WifeID);
+		}else if(HusbandAsChildID==WifeAsWifeID) {
+			result = printError(family, WifeID, HusbandID);
+		}else if(ChildList!=null) {
 			for(Individual child: ChildList) {
 				
-					String ChildID=child.getId();
-					
-					//If there is a husband, and the husband ID and child ID are the same, output error message
-					if(HusbandID!=null&&!HusbandID.equals("NA")&&HusbandID.equals(ChildID)){
-//						System.out.println(ID1+" "+ID3);
-						result = printError(family, HusbandID, ChildID);
-					
-					//If there is a wife, and the wife ID and child ID are the same, output error message	
-					}else if(WifeID!=null&&!WifeID.equals("NA")&&WifeID.equals(ChildID)){
-//						System.out.println(ID2+" "+ID3);
-						result = printError(family, WifeID, ChildID);
-					}
+				String ChildID=child.getId();
 				
+				//If there is a husband, and the husband ID and child ID are the same, output error message
+				if(HusbandID!=null&&!HusbandID.equals("NA")&&HusbandID.equals(ChildID)){
+//					System.out.println(ID1+" "+ID3);
+					result = printError(family, WifeID, ChildID);
+				
+				//If there is a wife, and the wife ID and child ID are the same, output error message	
+				}else if(WifeID!=null&&!WifeID.equals("NA")&&WifeID.equals(ChildID)){
+//					System.out.println(ID2+" "+ID3);
+					result = printError(family, HusbandID, ChildID);
+				}			
 			}
 		}
 		return result;	
@@ -55,28 +64,29 @@ public class US17and21 {
 		return res;	
 	}
 	
-//	public static void main(String[] args) {
-//		Family f1 = new Family();
-//		Individual i1 = new Individual();
-//		Individual i2 = new Individual();
-//		Map<String, Individual> individualMap = new HashMap<String, Individual>();
-//		f1.setID("f001");
-//		i1.setId("I101");
-//		i1.setSpouse("f001");
-//		i1.setChild("f001");
-//		i1.setBirthday("1908-01-01");
-//		i2.setId("I102");
-//		i2.setSpouse("f001");
-//		i2.setBirthday("1918-01-30");
-//		individualMap.put("I101", i1);
-//		individualMap.put("I102", i2);
-//		f1.setHusbandId("I101");
-//		f1.setWifeId("I102");
-//		f1.setChildren(new ArrayList<>());
-//		f1.getChildren().add(i1);
-//		
-//		System.out.println("\n--------------------US17--------------------");
-//
-//		System.out.println(US17(f1, individualMap));
-//	}
+	public static void main(String[] args) {
+		Family f1 = new Family();
+		Individual i1 = new Individual();
+		Individual i2 = new Individual();
+		Map<String, Individual> individualMap = new HashMap<String, Individual>();
+		Map<String, Family> familyMap = new HashMap<String, Family>();
+		f1.setID("f001");
+		i1.setId("I101");
+		i1.setSpouse("f001");
+		i1.setChild("f001");
+		i1.setBirthday("1908-01-01");
+		i2.setId("I102");
+		i2.setSpouse("f001");
+		i2.setBirthday("1918-01-30");
+		individualMap.put("I101", i1);
+		individualMap.put("I102", i2);
+		f1.setHusbandId("I101");
+		f1.setWifeId("I102");
+		f1.setChildren(new ArrayList<>());
+		f1.getChildren().add(i1);
+		
+		System.out.println("\n--------------------US17--------------------");
+
+		System.out.println(US17(f1, individualMap, familyMap));
+	}
 }

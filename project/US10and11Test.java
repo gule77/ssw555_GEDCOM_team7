@@ -120,21 +120,20 @@ public class US10and11Test {
         individualList2.add(indi7);
         individualList2.add(indi8);
         
-        US10and11 instance = new US10and11();
         // When no family is in the GEDCOM
         boolean expResult = true;
-        boolean result = instance.us10(familyList1, individualList2);
+        boolean result = US10and11.us10(familyList1, individualList2);
         assertEquals(expResult, result);
         // When individuals are not successfully parsed
-        assertFalse(instance.us10(familyList2, individualList1));
+        assertFalse(US10and11.us10(familyList2, individualList1));
         // All marriages are 14 years after birth
-        assertTrue(instance.us10(familyList2, individualList2));
+        assertTrue(US10and11.us10(familyList2, individualList2));
         // Husband is less than 14 years old at marriage date
-        assertFalse(instance.us10(familyList3, individualList2));
+        assertFalse(US10and11.us10(familyList3, individualList2));
         // Wife is less than 14 years old at marriage date
-        assertFalse(instance.us10(familyList4, individualList2));
+        assertFalse(US10and11.us10(familyList4, individualList2));
         // Husband and wife from different families are less than 14 at marriage
-        assertFalse(instance.us10(familyList5, individualList2));
+        assertFalse(US10and11.us10(familyList5, individualList2));
         
     }
 
@@ -261,16 +260,15 @@ public class US10and11Test {
         individualList2.add(indi5);
         individualList2.add(indi6);
         
-        US10and11 instance = new US10and11();
         boolean expResult = true;
-        boolean result = instance.us11(familyList1, individualList1);
+        boolean result = US10and11.us11(familyList1, individualList1);
         assertEquals(expResult, result);
         
-        assertFalse(instance.us11(familyList2, individualList1));
-        assertFalse(instance.us11(familyList2, individualList2));
-        assertFalse(instance.us11(familyList3, individualList2));
-        assertFalse(instance.us11(familyList4, individualList2));
-        assertFalse(instance.us11(familyList5, individualList2));
+        assertFalse(US10and11.us11(familyList2, individualList1));
+        assertFalse(US10and11.us11(familyList2, individualList2));
+        assertFalse(US10and11.us11(familyList3, individualList2));
+        assertFalse(US10and11.us11(familyList4, individualList2));
+        assertFalse(US10and11.us11(familyList5, individualList2));
         
     }
     

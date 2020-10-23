@@ -1,5 +1,3 @@
-package src;
-
 public class Individual {
 	private String ID;
 	private int line;

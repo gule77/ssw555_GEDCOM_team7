@@ -1,5 +1,3 @@
-package src;
-
 import java.text.ParseException;
 import java.util.*;
 public class US18and19 {

@@ -21,7 +21,7 @@ public class US16and29 {
 			String temp = fam.getHusbandLastName();
 //			System.out.println(temp);
 			for (Individual p : people) {
-				if (fam.getChildren().contains(p)) {
+				if (p.getLastName() != null && fam.getChildren().contains(p)) {
 					res = temp.equals(p.getLastName());
 //					System.out.println("res=====: " + res);
 					if (!res) {

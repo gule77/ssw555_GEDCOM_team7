@@ -84,5 +84,34 @@ public class Sprint2Test {
 
         /* US36 */
         US35and36.US36(proj3.individualList);
+        
+        /* US15 */
+        for (Family f : proj3.familyList) {
+            US15and28.US15(f);
+        }
+        
+        /* US28 */
+        for (Family f : proj3.familyList) {
+            US15and28.US28(f);
+        }
+        
+        /* US18 */
+        US18and19.US18(proj3.familyList);
+        
+        /* US19 */
+        US18and19.US19(proj3.familyList);
+        
+        /* US22 */
+        US22and23.US22(proj3.individualList, proj3.familyList);
+        
+        /* US23 */
+        US22and23.US23(proj3.individualList);
+        
+        /* US16 */
+        US16and29.US16(proj3.familyList, proj3.individualList);
+        
+        /* US29 */
+        US16and29.US29(proj3.individualList);
+
     }
 }

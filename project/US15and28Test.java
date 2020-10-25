@@ -77,9 +77,9 @@ class US15and28Test extends HelperFuctions {
     @org.junit.jupiter.api.Test
     void US28() {
         System.out.println("US28-0-F4");
-        assertEquals(US15and28.US28(f0), "Family F0 have no child");
+        assertEquals(US15and28.US28(f0), "DATA: FAMILY: US28: 0 F0: Family has no child");
         System.out.println("US28-1-F4");
-        assertEquals(US15and28.US28(f4),
-                "Sort family F4's children by their ages in decreasing order: <I52, I49, I51, I50, I53>");
+        assertEquals(US15and28.US28(f4), "DATA: FAMILY: US28: 0 F4: Sort family's children " +
+                                            "by their ages in decreasing order: <I52, I49, I51, I50, I53>");
     }
 }

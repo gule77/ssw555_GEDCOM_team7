@@ -11,7 +11,7 @@ public class US35and36 {
 			LocalDate today = LocalDate.now();
 			long noOfDaysBetween = ChronoUnit.DAYS.between(birthDate, today);
 			if(noOfDaysBetween <= 30) {
-				System.out.println("Data: INDIVIDUAL: US35: " + person.getLine() + ": " + person.getId() + ": Born in the last 30 days "); 
+				System.out.println("Data: US35: " + person.getId() + ": Born in the last 30 days "); 
 				res = true;
 			}
 		}
@@ -27,7 +27,7 @@ public class US35and36 {
 				LocalDate today = LocalDate.now();
 				long noOfDaysBetween = ChronoUnit.DAYS.between(birthDate, today);
 				if(noOfDaysBetween <= 30) {
-					System.out.println("Data: INDIVIDUAL: US36: " + person.getLine() + ": " + person.getId() + ": Death in the last 30 days "); 
+					System.out.println("Data: US36: " + person.getId() + ": Death in the last 30 days "); 
 					res = true;
 				}
 			}

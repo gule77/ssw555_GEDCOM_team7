@@ -72,7 +72,6 @@ public class US35and36Test extends TestCase {
 		familyList2.add(f2);		
     }
    
-   //US07
     public void test1() {
         Assert.assertTrue(US35and36.US35(individualList1));
       }

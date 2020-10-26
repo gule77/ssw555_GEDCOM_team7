@@ -38,6 +38,7 @@ public class US15and28 {
         sb.deleteCharAt(sb.length() - 1);
         sb.deleteCharAt(sb.length() - 1);
         sb.append(">");
+        System.out.println("DATA: US28: " + sb.toString());
         return sb.toString();
     }
 }

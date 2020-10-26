@@ -12,8 +12,14 @@ public class US17and21 {
     	Individual wife = individualMap.get(WifeID);
     	String HusbandAsHusbandID = husband.getSpouse();
     	String HusbandAsChildID = husband.getChild();
-    	String WifeAsWifeID = wife.getSpouse();
-    	String WifeAsChildID = wife.getChild();
+    	String WifeAsWifeID = "";
+    	String WifeAsChildID = "";
+    	if(wife != null && !wife.getSpouse().equals("NA")) {
+			WifeAsWifeID = wife.getSpouse();
+		}
+    	if(wife != null && wife.getChild() != null) {
+			WifeAsChildID = wife.getChild();
+		}
     	
 		List<Individual> ChildList = family.getChildren();
 		
@@ -56,7 +62,11 @@ public class US17and21 {
     	Individual husband = individualMap.get(husbandID);
     	Individual wife = individualMap.get(wifeID);
     	String husbandGender= husband.getGender();
-    	String wifeGender=wife.getGender();
+    	String wifeGender= "";
+    	if(wife != null) {
+			wifeGender=wife.getGender();
+		}
+
     	if(!husbandGender.equals("M")||!wifeGender.equals("F")) {
     		System.out.println("ERROR: FAMILY: US21: "+f.getLine()+": "+f.getID()+": Gender errors in family members");
     		res = false;

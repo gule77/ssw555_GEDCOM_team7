@@ -3,7 +3,7 @@ import java.text.ParseException;
 public class Sprint2Test {
     public static void main(String[] args) {
         GedcomParse proj3 = new GedcomParse();
-        proj3.readFile("TestForSprint1.ged");
+        proj3.readFile("TestForSprint2.ged");
         proj3.writeIntoIndividualList();
         proj3.writeIntofamilyList();
         System.out.println("People");
@@ -50,24 +50,31 @@ public class Sprint2Test {
         System.out.println("+-----+------------+------------+------------+--------------------+-----------+--------------------+---------------------------------------------+");
         // List
         /* US15 */
-
+        for (Family f : proj3.familyList) {
+            US15and28.US15(f);
+        }
         /* US16 */
+        US16and29.US16(proj3.familyList, proj3.individualList);
 
         /* US17 */
         for(Family family : proj3.familyList) {
             US17and21.US17(family, proj3.individualMap, proj3.familyMap);
         }
         /* US18 */
+        US18and19.US18(proj3.familyList);
 
         /* US19 */
+        US18and19.US19(proj3.familyList);
 
         /* US21 */
         for(Family family : proj3.familyList) {
             US17and21.US21(family, proj3.individualMap);
         }
         /* US22 */
+        US22and23.US22(proj3.individualList, proj3.familyList);
 
         /* US23 */
+        US22and23.US23(proj3.individualList);
 
         /* US24 */
         US24and25.US24(proj3.familyList);
@@ -76,8 +83,11 @@ public class Sprint2Test {
         US24and25.US25(proj3.familyList);
 
         /* US28 */
-
+        for (Family f : proj3.familyList) {
+            US15and28.US28(f);
+        }
         /* US29 */
+        US16and29.US29(proj3.individualList);
 
         /* US35 */
         US35and36.US35(proj3.individualList);
@@ -85,33 +95,9 @@ public class Sprint2Test {
         /* US36 */
         US35and36.US36(proj3.individualList);
         
-        /* US15 */
-        for (Family f : proj3.familyList) {
-            US15and28.US15(f);
-        }
+
         
-        /* US28 */
-        for (Family f : proj3.familyList) {
-            US15and28.US28(f);
-        }
-        
-        /* US18 */
-        US18and19.US18(proj3.familyList);
-        
-        /* US19 */
-        US18and19.US19(proj3.familyList);
-        
-        /* US22 */
-        US22and23.US22(proj3.individualList, proj3.familyList);
-        
-        /* US23 */
-        US22and23.US23(proj3.individualList);
-        
-        /* US16 */
-        US16and29.US16(proj3.familyList, proj3.individualList);
-        
-        /* US29 */
-        US16and29.US29(proj3.individualList);
+
 
     }
 }

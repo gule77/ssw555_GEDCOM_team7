@@ -17,7 +17,7 @@ public class US18and19 {
                     if(husbandId != null && wifeId != null) {
                         if(children!= null && children.contains(husbandId) && children.contains(wifeId)){
                             res =false;
-                            System.out.println("Error US18: " + family.getHusbandID() + " and " + family.getWifeID() + " in family " + family.getID() + " get married while they are siblings");
+                            System.out.println("ERROR: FAMILY: US18: " + family.getHusbandID() + " and " + family.getWifeID() + " in family " + family.getID() + " get married while they are siblings");
                         }
                     }
                 }
@@ -84,7 +84,7 @@ public class US18and19 {
                 if(entry.getKey() >= 3 ) {
                     HashSet<String> sameGen = entry.getValue();
                     if(sameGen.contains(family.getHusbandID()) && sameGen.contains(family.getWifeID())) {
-                        System.out.println("Error US19: " + family.getHusbandID() + " and " + family.getWifeID() + " in family " + family.getID() + " married while they are fisrt cousins");
+                        System.out.println("ERROR: FAMILY: US19: " + family.getHusbandID() + " and " + family.getWifeID() + " in family " + family.getID() + " married while they are fisrt cousins");
                         res = false;
                     }
                 }

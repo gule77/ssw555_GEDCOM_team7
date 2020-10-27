@@ -175,38 +175,38 @@ public class US34and37 {
         }
     }
 	
-	public static void main(String[] args) throws ParseException {
-		Family f1 = new Family();
-		Individual i1 = new Individual();
-		Individual i2 = new Individual();
-		Individual i3 = new Individual();
-		Individual i4 = new Individual();
-		Map<String, Individual> individualMap = new HashMap<String, Individual>();
-		f1.setID("f011");
-		i1.setId("I105");
-		i1.setAlive(false);
-		i1.setDeath("2020-09-20");
-		i2.setId("I106");
-		i2.setAlive(false);
-		i2.setDeath("2020-10-6");
-		i3.setId("I107");
-		i3.setAlive(false);
-		i3.setDeath("2020-10-26");
-		i4.setId("I108");
-		i4.setAlive(true);
-		i4.setDeath("2020-09-26");
-		individualMap.put("I105", i1);
-		individualMap.put("I106", i2);
-		f1.setHusbandId("I105");
-		f1.setWifeId("I106");
-		List<Individual> children = new ArrayList<>();
-		children.add(i3);
-		children.add(i4);
-		f1.setChildren(children);
-    
-
-		System.out.println("\n--------------------US37--------------------");
-
-		System.out.println(US37(f1, individualMap));
-	}
+//	public static void main(String[] args) throws ParseException {
+//		Family f1 = new Family();
+//		Individual i1 = new Individual();
+//		Individual i2 = new Individual();
+//		Individual i3 = new Individual();
+//		Individual i4 = new Individual();
+//		Map<String, Individual> individualMap = new HashMap<String, Individual>();
+//		f1.setID("f011");
+//		i1.setId("I105");
+//		i1.setAlive(false);
+//		i1.setDeath("2020-09-20");
+//		i2.setId("I106");
+//		i2.setAlive(false);
+//		i2.setDeath("2020-10-6");
+//		i3.setId("I107");
+//		i3.setAlive(false);
+//		i3.setDeath("2020-10-26");
+//		i4.setId("I108");
+//		i4.setAlive(true);
+//		i4.setDeath("2020-09-26");
+//		individualMap.put("I105", i1);
+//		individualMap.put("I106", i2);
+//		f1.setHusbandId("I105");
+//		f1.setWifeId("I106");
+//		List<Individual> children = new ArrayList<>();
+//		children.add(i3);
+//		children.add(i4);
+//		f1.setChildren(children);
+//    
+//
+//		System.out.println("\n--------------------US37--------------------");
+//
+//		System.out.println(US37(f1, individualMap));
+//	}
 }

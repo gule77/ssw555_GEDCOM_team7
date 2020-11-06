@@ -1,4 +1,3 @@
-
 import java.text.ParseException;
 import java.util.*;
 
@@ -80,7 +79,7 @@ public class US20and26 {
         return res;
     }
 
-    public static boolean US26(List<Family> familyList, HashMap<String, Individual> individualList) {
+    public static boolean US26(List<Family> familyList, Map<String, Individual> individualList) {
         /*
         Ensure all family roles in an individual record should have corresponding entries in the corresponding family records
          */
@@ -94,7 +93,7 @@ public class US20and26 {
                 res = false;
             }
             Individual wife = individualList.get(family.getWifeID());
-            if(wife.getName() != null && !wife.getName().equals(family.getWifeName())) {
+            if(wife != null && wife.getName() != null && family.getWifeName() != null && !wife.getName().equals(family.getWifeName())) {
                 System.out.println("ERROR: INDIVIDUAL " + wife.getId() + ": " + wife.getLine() +
                         ": wife's name: "+ wife.getName() + " is inconsistent with entry's name:  "+family.getWifeName() +
                         " in the FAMILY " + family.getID() + ": " + family.getLine());

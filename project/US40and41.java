@@ -8,7 +8,7 @@ public class US40and41 {
 		  	
 		  	
 		    GedcomParse sp3 = new GedcomParse();
-	        sp3.readFile("TestForSprint2.ged");
+	        sp3.readFile("TestForSprint3.ged");
 	        ArrayList<String> arr = sp3.dataGet;
 	        
 	        for (int i = 0; i < arr.size(); i++) {

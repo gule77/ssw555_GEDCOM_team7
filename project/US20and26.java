@@ -69,7 +69,7 @@ public class US20and26 {
                         HashSet<String> nextGenList = generationMap.get(genLevel + 1);
                         if(nextGenList.contains(family.getHusbandID()) || nextGenList.contains(family.getWifeID())) {
                             res = false;
-                            System.out.println("ERROR: FAMILY " + family.getID() + ": " + family.getLine() + ": " +
+                            System.out.println("ERROR: US20: FAMILY " + family.getID() + ": " + family.getLine() + ": " +
                                     family.getHusbandName() + " and " +family.getWifeName() + " are aunt/uncle and niece/nephew");
                         }
                     }
@@ -87,14 +87,14 @@ public class US20and26 {
         for(Family family : familyList) {
             Individual husband = individualList.get(family.getHusbandID());
             if( husband.getName() != null && !husband.getName().equals(family.getHusbandName())) {
-                System.out.println("ERROR: INDIVIDUAL " + husband.getId() + ": " + husband.getLine() +
+                System.out.println("ERROR: US26: INDIVIDUAL " + husband.getId() + ": " + husband.getLine() +
                         ": husband's name: "+ husband.getName() + " is inconsistent with entry's name: "+family.getHusbandName()
                         +" in the FAMILY " + family.getID() + ": " + family.getLine());
                 res = false;
             }
             Individual wife = individualList.get(family.getWifeID());
             if(wife != null && wife.getName() != null && family.getWifeName() != null && !wife.getName().equals(family.getWifeName())) {
-                System.out.println("ERROR: INDIVIDUAL " + wife.getId() + ": " + wife.getLine() +
+                System.out.println("ERROR: US26: INDIVIDUAL " + wife.getId() + ": " + wife.getLine() +
                         ": wife's name: "+ wife.getName() + " is inconsistent with entry's name:  "+family.getWifeName() +
                         " in the FAMILY " + family.getID() + ": " + family.getLine());
                 res = false;
@@ -102,7 +102,7 @@ public class US20and26 {
             if(family.getChildren() != null) {
                 for(Individual child : family.getChildren()) {
                     if(child.getChild() != null && !child.getChild().equals(family.getID())) {
-                        System.out.println("ERROR: INDIVIDUAL " + child.getId() + ": " + child.getLine() +
+                        System.out.println("ERROR: US26: INDIVIDUAL " + child.getId() + ": " + child.getLine() +
                                 ": the Child's family information " + child.getChild() + " is inconsistent with " +
                                 family.getID()+ " the family in "+ family.getID() + ": " + family.getLine());
                         res = false;

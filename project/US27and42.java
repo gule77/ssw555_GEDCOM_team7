@@ -1,6 +1,6 @@
 //package project;
 
-import javafx.scene.control.SpinnerValueFactory;
+//import javafx.scene.control.SpinnerValueFactory;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -55,6 +55,7 @@ public class US27and42 {
     }
 
     private static boolean isLegalDate(String sDate) {
+        if (sDate.equals("NA")) return true;
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-d");
         try {
             Date date = formatter.parse(sDate);

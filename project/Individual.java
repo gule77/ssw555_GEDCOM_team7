@@ -11,6 +11,7 @@ public class Individual {
 	private String death;
 	private String child;
 	private String spouse;
+	private String fams = "NA";
 
 	public String getId() {
 		return ID;
@@ -58,7 +59,11 @@ public class Individual {
 	public String getSpouse() {
 		return spouse;
 	}
-
+	
+	public String getFams() {
+        	return fams;
+    	}
+	
 	// mutators;
 	public void setId(String ID) {
 		this.ID = ID;
@@ -109,4 +114,8 @@ public class Individual {
 	public void setSpouse(String spouse) {
 		this.spouse = spouse;
 	}
+	
+	public void setFams(String fams) {
+        	this.fams = fams;
+    	}
 }

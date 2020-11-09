@@ -64,13 +64,15 @@ public class Sprint3Test {
 		
 		
 		//US34 and US37
-		try {
-			US34and37.US37(proj3.familyList.get(0), proj3.individualMap);
-			US34and37.US34(proj3.familyList.get(0), proj3.individualMap);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+                for (Family family : proj3.familyList) {
+                    try {
+			US34and37.US37(family, proj3.individualMap);
+			US34and37.US34(family, proj3.individualMap);
+                    } catch (ParseException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                    }
+                }
 		
 		
 		//US20 and 26
@@ -95,6 +97,7 @@ public class Sprint3Test {
                 
                 
                 //US27 and 42
+                System.out.println("US27: ");
                 for (Individual individual : proj3.individualList) {
                     System.out.println(US27and42.US27(individual));
                     US27and42.US42IndividualDate(individual);

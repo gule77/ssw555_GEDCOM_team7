@@ -19,7 +19,7 @@ public class US27and42 {
         }
         LocalDate ld1 = LocalDate.parse(indi.getBirthday(), formatter);
         int age = (int) ChronoUnit.YEARS.between(ld1, LocalDate.now());
-        return indi.getId() + "(" + age + ")";
+        return "ID: " + indi.getId() + "Age: " + age;
     }
 
     public static boolean US42FamilyDate(Family f) {

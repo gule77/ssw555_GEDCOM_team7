@@ -119,7 +119,7 @@ public class US34and37 {
 	}
 	
 	private static int getAgeByMarry(String birthString,String marryString) throws ParseException {
-
+        if (birthString.equals("NA") || marryString.equals("NA")) return 0;
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date birthday = format.parse(birthString);
         Date marryDate = format.parse(marryString);
@@ -149,6 +149,7 @@ public class US34and37 {
 	}
 	
 	private static int getDayByDeath(String deathString) throws ParseException {
+        if (deathString.equals("NA")) return 0;
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date deathDate = format.parse(deathString);
         int days = 999;

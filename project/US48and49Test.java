@@ -62,7 +62,24 @@ public class US48and49Test extends TestCase{
     	individualMap.put("I106", i2);
     	f1.setHusbandId("I105");
     	f1.setWifeId("I106");
-    	Assert.assertEquals(false, US48and49.US49(f1, individualMap));
+    	List<Family> list = new ArrayList<>();
+    	list.add(f1);
+    	Family f2 = new Family();
+    	Individual i3 = new Individual();
+    	Individual i4 = new Individual();
+    	f2.setID("f004");
+    	i3.setId("I111");
+    	i3.setAlive(true);
+    	i3.setAge(55);
+    	i4.setId("I112");
+    	i4.setAlive(true);
+    	i4.setAge(55);
+    	individualMap.put("I111", i3);
+    	individualMap.put("I112", i4);
+    	f2.setHusbandId("I111");
+    	f2.setWifeId("I112");
+    	list.add(f2);
+    	Assert.assertEquals(false, US48and49.US49(list, individualMap));
     }
     
     public void test4() throws ParseException{
@@ -81,7 +98,9 @@ public class US48and49Test extends TestCase{
     	individualMap.put("I108", i2);
     	f1.setHusbandId("I107");
     	f1.setWifeId("I108");
-    	Assert.assertEquals(true, US48and49.US49(f1, individualMap));
+    	List<Family> list = new ArrayList<>();
+    	list.add(f1);
+    	Assert.assertEquals(true, US48and49.US49(list, individualMap));
     }
     
     public void test5() throws ParseException{
@@ -100,7 +119,9 @@ public class US48and49Test extends TestCase{
     	individualMap.put("I110", i2);
     	f1.setHusbandId("I109");
     	f1.setWifeId("I110");
-    	Assert.assertTrue(US48and49.US49(f1, individualMap));
+    	List<Family> list = new ArrayList<>();
+    	list.add(f1);
+    	Assert.assertTrue(US48and49.US49(list, individualMap));
     }
     
 }

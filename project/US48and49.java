@@ -24,21 +24,24 @@ public class US48and49 {
 		return res;
 	}
 	
-	public static boolean US49(Family family,Map<String, Individual> individualMap) throws ParseException {
+	public static boolean US49(List<Family> familyList,Map<String, Individual> individualMap) {
 		boolean result = true;
-		String HusbandID = family.getHusbandID();
-		String WifeID = family.getWifeID();
-    	Individual husband = individualMap.get(HusbandID);
-    	Individual wife = individualMap.get(WifeID);
-    	if(husband!=null&&wife!=null&&husband.getIsAlive()&&wife.getIsAlive()) {
-    		int HusbandAge = husband.getAge();
-    		int WifeAge = wife.getAge();
-    		if(HusbandAge==WifeAge) {
-    			System.out.println("DATA: US49: "+family.getID()+": "+husband.getId()+"("+husband.getAge()+")"+" and "+wife.getId()+
-    					"("+wife.getAge()+") are the same age");
-    			result = false;
-    		}
-    	}
+		for(Family family: familyList) {
+			String HusbandID = family.getHusbandID();
+			String WifeID = family.getWifeID();
+	    	Individual husband = individualMap.get(HusbandID);
+	    	Individual wife = individualMap.get(WifeID);
+	    	if(husband!=null&&wife!=null&&husband.getIsAlive()&&wife.getIsAlive()) {
+	    		int HusbandAge = husband.getAge();
+	    		int WifeAge = wife.getAge();
+	    		if(HusbandAge==WifeAge) {
+	    			System.out.println("DATA: US49: "+family.getID()+": "+husband.getId()+"("+husband.getAge()+")"+" and "+wife.getId()+
+	    					"("+wife.getAge()+") are the same age");
+	    			result = false;
+	    		}
+	    	}
+		}
+
 		return result;
 	}
 }

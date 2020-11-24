@@ -43,7 +43,6 @@ public class US38and39 {
 			        	nextMDay = nextMDay.plusYears(1);
 			        }
 			        long noOfDaysBetween = ChronoUnit.DAYS.between(today, nextMDay);
-			        System.out.println(noOfDaysBetween);
 					if(noOfDaysBetween <= 30) {
 						System.out.println("Data: US39: " + family.getID() + ": Marriage anniversaries occur in the next 30 days "); 
 						res = true;

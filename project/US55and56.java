@@ -39,6 +39,7 @@ public class US55and56 {
          StringBuilder sb = new StringBuilder();
          sb.append("DATA: FAMILY: US56: {");
          for (Family f: familyList) {
+             if(f.getMarried().equals("NA")) continue;
              if (daysBetweenToday(f.getMarried()) <= 30) {
                  res = true;
                  sb.append(f.getLine() + ": " + f.getID() + ", ");
